@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_150sdp"
+    android:layout_margin="@dimen/_2sdp"
+    android:elevation="@dimen/_16sdp"
+    app:cardCornerRadius="@dimen/_12sdp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image_view_product"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_margin="@dimen/_8sdp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/image"
+            android:scaleType="fitXY"
+            android:src="@drawable/splash"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearance="@style/Circle" />
+
+        <TextView
+            android:id="@+id/text_view_product_name"
+            style="@style/MyTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:text="@string/products"
+            app:layout_constraintStart_toEndOf="@id/image_view_product"
+            app:layout_constraintTop_toTopOf="@id/image_view_product" />
+
+        <TextView
+            android:id="@+id/text_view_product_department"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:text="@string/products"
+            android:textSize="@dimen/_10ssp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@id/image_view_product"
+            app:layout_constraintTop_toBottomOf="@id/text_view_product_name" />
+
+        <TextView
+            android:id="@+id/text_view_date"
+            style="@style/MyTextView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:text="@string/updated"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@id/image_view_product"
+            app:layout_constraintTop_toBottomOf="@id/text_view_product_department" />
+
+        <TextView
+            android:id="@+id/text_view_price"
+            style="@style/MyTextView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:text="@string/price"
+            app:layout_constraintStart_toEndOf="@id/image_view_product"
+            app:layout_constraintTop_toBottomOf="@id/text_view_date" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/ItemButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:layout_marginVertical="@dimen/_8sdp"
+            android:background="@drawable/button_background_gradient"
+            android:text="@string/product_details"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.8" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
