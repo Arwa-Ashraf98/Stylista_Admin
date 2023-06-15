@@ -1,0 +1,639 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/_8sdp"
+    tools:context=".product.presentation.addProduct.ui.AddProductFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:paddingBottom="@dimen/_8sdp"
+        >
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_save_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_save_alt_24"
+            android:layout_margin="@dimen/_5sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:backgroundTint="@color/primary_color"
+            app:fabSize="normal"
+            app:tint="@color/white"
+            android:contentDescription="@string/image"
+            />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_8sdp">
+
+
+            <ImageView
+                android:id="@+id/image_view_back"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_margin="@dimen/_8sdp"
+                android:contentDescription="@string/image"
+                android:src="@drawable/baseline_arrow_back_ios_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/black" />
+
+            <TextView
+                android:id="@+id/addProducts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:text="@string/add_products"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_20sdp"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_back"
+                app:layout_constraintStart_toEndOf="@id/image_view_back"
+                app:layout_constraintTop_toTopOf="@id/image_view_back" />
+
+            <TextView
+                android:id="@+id/product"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8sdp"
+                android:text="@string/product"
+                android:textColor="@color/navy"
+                android:textSize="@dimen/_16ssp"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toTopOf="@id/productCard"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/addProducts" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/productCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8sdp"
+                app:cardCornerRadius="@dimen/_8sdp"
+                app:cardElevation="@dimen/_8sdp"
+                app:layout_constraintTop_toBottomOf="@id/product"
+                app:strokeColor="@color/primary_color"
+                app:strokeWidth="@dimen/_1sdp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ProgressBar
+                        android:id="@+id/progressBarProduct"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:elevation="@dimen/_16sdp"
+                        android:indeterminateTint="@color/primary_color"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/product_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8sp"
+                        android:orientation="vertical"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/poster"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:text="@string/poster"
+                                android:textColor="@color/primary_color"
+                                android:textSize="@dimen/_14ssp"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/addProducts" />
+
+                            <EditText
+                                android:id="@+id/edit_text_poster"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:autofillHints="name"
+                                android:hint="@string/enter_the_poster_url"
+                                android:inputType="textUri"
+                                android:maxEms="15"
+                                android:paddingStart="@dimen/_4sdp"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12ssp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/productName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:text="@string/product_name"
+                                android:textColor="@color/primary_color"
+                                android:textSize="@dimen/_14ssp"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/addProducts" />
+
+                            <EditText
+                                android:id="@+id/edit_text_product_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:autofillHints="name"
+                                android:hint="@string/enter_product_name"
+                                android:inputType="text"
+                                android:maxEms="15"
+                                android:maxLines="2"
+                                android:paddingStart="@dimen/_4sdp"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12ssp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/productType"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:text="@string/product_type"
+                                android:textColor="@color/primary_color"
+                                android:textSize="@dimen/_14ssp"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/addProducts" />
+
+                            <EditText
+                                android:id="@+id/edit_text_product_type_add"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:autofillHints="name"
+                                android:hint="@string/enter_product_type"
+                                android:inputType="text"
+                                android:maxEms="15"
+                                android:maxLines="1"
+                                android:paddingStart="@dimen/_4sdp"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12ssp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/productVendor"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:text="@string/vendor"
+                                android:textColor="@color/primary_color"
+                                android:textSize="@dimen/_14ssp"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/addProducts" />
+
+                            <EditText
+                                android:id="@+id/edit_text_product_vendor_add"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:autofillHints="name"
+                                android:hint="@string/enter_vendor_name"
+                                android:inputType="textPersonName"
+                                android:maxEms="15"
+                                android:maxLines="1"
+                                android:paddingStart="@dimen/_4sdp"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12ssp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/productDescription"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:text="@string/description"
+                                android:textColor="@color/primary_color"
+                                android:textSize="@dimen/_14ssp"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/addProducts" />
+
+                            <EditText
+                                android:id="@+id/edit_text_product_description"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_50sdp"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:autofillHints="name"
+                                android:gravity="start"
+                                android:hint="@string/enter_product_description"
+                                android:inputType="text"
+                                android:maxEms="15"
+                                android:maxLines="5"
+                                android:paddingStart="@dimen/_4sdp"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12ssp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/_8sdp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/productTags"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:text="@string/product_tags"
+                                android:textColor="@color/primary_color"
+                                android:textSize="@dimen/_14ssp"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/addProducts" />
+
+                            <EditText
+                                android:id="@+id/edit_text_product_tags"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:autofillHints="name"
+                                android:hint="@string/enter_product_tags"
+                                android:inputType="text"
+                                android:maxEms="15"
+                                android:maxLines="2"
+                                android:paddingStart="@dimen/_4sdp"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12ssp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/variant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8sdp"
+                android:text="@string/variant"
+                android:textColor="@color/navy"
+                android:textSize="@dimen/_16ssp"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/productCard" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/variantCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8sdp"
+                app:cardCornerRadius="@dimen/_8sdp"
+                app:cardElevation="@dimen/_8sdp"
+                app:layout_constraintTop_toBottomOf="@id/variant"
+                app:strokeColor="@color/primary_color"
+                app:strokeWidth="@dimen/_1sdp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ProgressBar
+                        android:id="@+id/progressBarVariant"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:elevation="@dimen/_16sdp"
+                        android:indeterminateTint="@color/primary_color"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/variant_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8sp"
+                        android:orientation="vertical"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:text="@string/price"
+                                android:textColor="@color/primary_color"
+                                android:textSize="@dimen/_14ssp"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/addProducts" />
+
+                            <EditText
+                                android:id="@+id/edit_text_price_add"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:autofillHints="name"
+                                android:hint="@string/enter_product_price"
+                                android:inputType="number"
+                                android:maxEms="15"
+                                android:paddingStart="@dimen/_4sdp"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12ssp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/productQuantity"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:text="@string/quantity"
+                                android:textColor="@color/primary_color"
+                                android:textSize="@dimen/_14ssp"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/addProducts" />
+
+                            <EditText
+                                android:id="@+id/edit_text_product_quantity_add"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:autofillHints="name"
+                                android:hint="@string/enter_Product_Quantity"
+                                android:inputType="number"
+                                android:maxEms="15"
+                                android:maxLines="2"
+                                android:paddingStart="@dimen/_4sdp"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12ssp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/color"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:text="@string/color"
+                                android:textColor="@color/primary_color"
+                                android:textSize="@dimen/_14ssp"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/addProducts" />
+
+                            <EditText
+                                android:id="@+id/edit_text_color_add"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:autofillHints="name"
+                                android:hint="@string/enter_product_color"
+                                android:inputType="text"
+                                android:maxEms="15"
+                                android:paddingStart="@dimen/_4sdp"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12ssp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/productSize"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:text="@string/size"
+                                android:textColor="@color/primary_color"
+                                android:textSize="@dimen/_14ssp"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/addProducts" />
+
+                            <EditText
+                                android:id="@+id/edit_text_product_size_add"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:autofillHints="name"
+                                android:hint="@string/enter_product_size"
+                                android:inputType="numberDecimal"
+                                android:maxEms="15"
+                                android:maxLines="2"
+                                android:paddingStart="@dimen/_4sdp"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12ssp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/_8sdp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_next"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_8sdp"
+                                android:backgroundTint="@color/primary_color"
+                                android:elevation="@dimen/_8sdp"
+                                android:paddingHorizontal="@dimen/_16sdp"
+                                android:paddingVertical="@dimen/_4sdp"
+                                android:text="@string/next"
+                                app:cornerRadius="@dimen/_8sdp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_done"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_8sdp"
+                                android:backgroundTint="@color/background_white"
+                                android:elevation="@dimen/_8sdp"
+                                android:paddingHorizontal="@dimen/_16sdp"
+                                android:paddingVertical="@dimen/_4sdp"
+                                android:text="@string/done"
+                                android:textColor="@color/primary_color"
+                                app:cornerRadius="@dimen/_8sdp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/images"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8sdp"
+                android:text="@string/images"
+                android:textColor="@color/navy"
+                android:textSize="@dimen/_16ssp"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/variantCard" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/ImageCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8sdp"
+                app:cardCornerRadius="@dimen/_8sdp"
+                app:cardElevation="@dimen/_8sdp"
+                app:layout_constraintTop_toBottomOf="@id/images"
+                app:strokeColor="@color/primary_color"
+                app:strokeWidth="@dimen/_1sdp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ProgressBar
+                        android:id="@+id/progressBarImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:elevation="@dimen/_16sdp"
+                        android:indeterminateTint="@color/primary_color"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/images_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8sp"
+                        android:orientation="vertical"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/imageUir"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:text="@string/image"
+                                android:textColor="@color/primary_color"
+                                android:textSize="@dimen/_14ssp"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/addProducts" />
+
+                            <EditText
+                                android:id="@+id/edit_text_product_image_uri_add"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:autofillHints="name"
+                                android:hint="@string/enter_product_size"
+                                android:inputType="textUri"
+                                android:maxEms="15"
+                                android:maxLines="2"
+                                android:paddingStart="@dimen/_4sdp"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12ssp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/_8sdp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_next_image"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_8sdp"
+                                android:backgroundTint="@color/primary_color"
+                                android:elevation="@dimen/_8sdp"
+                                android:paddingHorizontal="@dimen/_16sdp"
+                                android:paddingVertical="@dimen/_4sdp"
+                                android:text="@string/next"
+                                app:cornerRadius="@dimen/_8sdp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_done_image"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_8sdp"
+                                android:backgroundTint="@color/background_white"
+                                android:elevation="@dimen/_8sdp"
+                                android:paddingHorizontal="@dimen/_16sdp"
+                                android:paddingVertical="@dimen/_4sdp"
+                                android:text="@string/done"
+                                android:textColor="@color/primary_color"
+                                app:cornerRadius="@dimen/_8sdp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</androidx.core.widget.NestedScrollView>
