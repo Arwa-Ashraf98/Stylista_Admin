@@ -21,14 +21,19 @@ class MainViewModel : ViewModel() {
     private fun provideNetworkStatus() {
 
         NetworkConnectivityObserver.observeNetworkConnection().onEach { networkStatus ->
-            if (networkStatus == NetworkStatus.Available) {
-                networkMStatusFlow.value = NetworkStatus.Available.toString()
-            }else if (networkStatus == NetworkStatus.Unavailable){
-                networkMStatusFlow.value = NetworkStatus.Unavailable.toString()
-            }else if(networkStatus == NetworkStatus.Losing){
-                networkMStatusFlow.value = NetworkStatus.Losing.toString()
-            }else {
-                networkMStatusFlow.value = NetworkStatus.Lost.toString()
+            when (networkStatus) {
+                NetworkStatus.Available -> {
+                    networkMStatusFlow.value = NetworkStatus.Available.toString()
+                }
+                NetworkStatus.Unavailable -> {
+                    networkMStatusFlow.value = NetworkStatus.Unavailable.toString()
+                }
+                NetworkStatus.Losing -> {
+                    networkMStatusFlow.value = NetworkStatus.Losing.toString()
+                }
+                else -> {
+                    networkMStatusFlow.value = NetworkStatus.Lost.toString()
+                }
             }
         }.launchIn(viewModelScope)
     }

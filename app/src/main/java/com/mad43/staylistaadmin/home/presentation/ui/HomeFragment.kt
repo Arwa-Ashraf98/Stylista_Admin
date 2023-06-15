@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.mad43.staylistaadmin.R
 import com.mad43.staylistaadmin.databinding.FragmentHomeBinding
 
@@ -28,9 +30,17 @@ class HomeFragment : Fragment() {
         onClicks()
     }
 
-    private fun onClicks(){
+    private fun onClicks() {
         binding.apply {
             btnProduct.setOnClickListener {
+                findNavController().navigate(R.id.action_homeFragment2_to_productFragment)
+            }
+
+            btnInventory.setOnClickListener {
+
+            }
+
+            btnDicounts.setOnClickListener {
 
             }
         }

@@ -6,10 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".main.ui.MainActivity">
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph" />
+
     <TextView
         android:id="@+id/test_view_noConnection"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_15sdp"
+        android:layout_height="@dimen/_20sdp"
         app:layout_constraintTop_toTopOf="parent"
         android:background="@color/red"
         android:text="@string/no_internet"
@@ -18,13 +26,5 @@
         android:textStyle="bold"
         android:visibility="gone"
         />
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/nav_host_fragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/nav_graph" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
