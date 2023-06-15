@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/text_color"
-    tools:context=".product.presentation.ui.ProductFragment">
+    tools:context=".product.presentation.getAllProduct.ui.ProductFragment">
 
     <ImageView
         android:id="@+id/image_view_back"
@@ -38,6 +38,7 @@
         android:layout_marginHorizontal="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:autofillHints="name"
+        android:paddingHorizontal="@dimen/_8sdp"
         android:background="@color/white"
         android:drawableStart="@drawable/baseline_search_24"
         android:drawablePadding="@dimen/_4sdp"
@@ -76,8 +77,24 @@
         android:layout_height="0dp"
         android:layout_marginHorizontal="@dimen/_8sdp"
         android:layout_marginVertical="@dimen/_4sdp"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edit_text_search"
+        android:paddingBottom="@dimen/_4sdp"
+        android:paddingTop="0dp"
         tools:listitem="@layout/item_product" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/_16sdp"
+        android:indeterminateTint="@color/primary_color"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
