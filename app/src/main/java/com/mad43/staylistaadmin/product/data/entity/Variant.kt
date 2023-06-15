@@ -1,0 +1,30 @@
+package com.mad43.staylistaadmin.product.data.entity
+
+data class Variant(
+    val admin_graphql_api_id: String? = "",
+    val barcode: Any? = null,
+    val compare_at_price: String? = "",
+    val created_at: String? = "",
+    val fulfillment_service: String? = "manual",
+    val grams: Int? = 0,
+    val id: Long? = 0L,
+    val image_id: Any? = null,
+    val inventory_item_id: Long? = 0L,
+    val inventory_management: String? = "",
+    val inventory_policy: String? = "deny",
+    val inventory_quantity: Int? = 0,
+    val old_inventory_quantity: Int? = 0,
+    val option1: String? = "",
+    val option2: String? = "",
+    val option3: Any? = "",
+    val position: Int? = 0,
+    val price: String? = "",
+    val product_id: Long? = 0L,
+    val requires_shipping: Boolean? = false,
+    val sku: String? = "",
+    val taxable: Boolean? = false,
+    val title: String? = "",
+    val updated_at: String? = "",
+    val weight: Double? = 0.0,
+    val weight_unit: String? = ""
+)
