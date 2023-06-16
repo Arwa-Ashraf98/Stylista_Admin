@@ -50,6 +50,9 @@ class ProductFragment : Fragment() {
         networkChecker = NetworkChecker()
         adapter = ProductAdapter()
         initViewModel()
+        lifecycleScope.launchWhenStarted {
+            productViewModel.getAllProduct()
+        }
         getData()
         onClicks()
 

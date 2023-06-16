@@ -9,6 +9,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.mad43.staylistaadmin.R
 import com.mad43.staylistaadmin.databinding.FragmentHomeBinding
+import com.mad43.staylistaadmin.utils.navigateToNextScreen
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
@@ -33,15 +34,11 @@ class HomeFragment : Fragment() {
     private fun onClicks() {
         binding.apply {
             btnProduct.setOnClickListener {
-                findNavController().navigate(R.id.action_homeFragment2_to_productFragment)
-            }
-
-            btnInventory.setOnClickListener {
-
+                navigateToNextScreen(R.id.action_homeFragment2_to_productFragment)
             }
 
             btnDicounts.setOnClickListener {
-
+                navigateToNextScreen(R.id.action_homeFragment2_to_priceRuleFragment)
             }
         }
     }

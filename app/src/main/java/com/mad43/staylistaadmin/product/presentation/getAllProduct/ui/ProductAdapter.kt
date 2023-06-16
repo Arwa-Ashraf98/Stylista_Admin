@@ -15,12 +15,7 @@ import com.mad43.staylistaadmin.utils.loadImage
 
 class ProductAdapter : Adapter<ProductAdapter.Holder>() {
     private var list: List<Product> = emptyList()
-//    private var variantList = listOf<Variant>()
     private var setOnItemClickListener: SetOnItemDetailsClickListener? = null
-
-//    fun setVariantList(variantList: List<Variant>) {
-//        this.variantList = variantList
-//    }
 
     fun setList(list: List<Product>) {
         this.list = list
@@ -38,12 +33,7 @@ class ProductAdapter : Adapter<ProductAdapter.Holder>() {
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val productModel = list[position]
-        val variantList = productModel.variants?.size
-        Log.e("TAG1", "$productModel")
-        Log.e("TAG1", "$variantList")
         holder.binding.apply {
-//            var date = productModel.updated_at
-//            val transformedDate = Helpers.transformDate(date as String)
             val date = "updated at : ${productModel.updated_at}"
             textViewDate.text = date
             val price = "${productModel.variants?.get(0)?.price as String} EGP"

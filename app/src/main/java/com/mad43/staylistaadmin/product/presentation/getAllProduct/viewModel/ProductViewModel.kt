@@ -33,7 +33,7 @@ class ProductViewModel(
         }
     }
 
-    private suspend fun getAllProduct() {
+    suspend fun getAllProduct() {
         val flow = repo.getAllProduct()
         flow.catch {
             mutableStateFlow.value = APIState.OnFail(it)
