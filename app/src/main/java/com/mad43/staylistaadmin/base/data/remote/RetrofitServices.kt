@@ -1,5 +1,7 @@
 package com.mad43.staylistaadmin.base.data.remote
 
+import com.mad43.staylistaadmin.priceRule.data.entity.PriceRuleResponse
+import com.mad43.staylistaadmin.priceRule.data.entity.PriceRuleRoot
 import com.mad43.staylistaadmin.product.data.entity.ImageRoot
 import com.mad43.staylistaadmin.product.data.entity.Product
 import com.mad43.staylistaadmin.product.data.entity.ProductModel
@@ -38,4 +40,11 @@ interface RetrofitServices {
 
     @PUT("products/{id}.json")
     suspend fun updateProduct(@Path("id") id : Long , @Body secondProductModel: SecondProductModel) : Response<SecondProductModel>
+
+    // price rule
+    @POST("price_rules.json")
+    suspend fun createPriceRule(@Body priceRuleRoot: PriceRuleRoot)
+
+    @GET("price_rules.json")
+    suspend fun getAllPriceRule() : Response<PriceRuleResponse>
 }
