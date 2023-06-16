@@ -70,4 +70,5 @@
     <string name="empty_password">Password shouldnot be empty</string>
     <string name="empty_shop_name">ShopName shouldnot be empty</string>
     <string name="price_rules">Price Rules</string>
+    <string name="discounts">Discounts</string>
 </resources>

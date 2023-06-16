@@ -1,5 +1,6 @@
 package com.mad43.staylistaadmin.base.data.remote
 
+import com.mad43.staylistaadmin.discount.data.entity.DiscountRoot
 import com.mad43.staylistaadmin.priceRule.data.entity.PriceRuleResponse
 import com.mad43.staylistaadmin.priceRule.data.entity.PriceRuleRoot
 import com.mad43.staylistaadmin.product.data.entity.ImageRoot
@@ -33,18 +34,27 @@ interface RetrofitServices {
 
 
     @POST("products.json")
-    suspend fun createProduct(@Body productModel: SecondProductModel) : Response<SecondProductModel>
+    suspend fun createProduct(@Body productModel: SecondProductModel): Response<SecondProductModel>
 
     @POST("products/{id}//images.json")
-    suspend fun uploadPosterImage(@Path("id") id : Long , @Body imageRoot: ImageRoot) : Response<ImageRoot>
+    suspend fun uploadPosterImage(
+        @Path("id") id: Long,
+        @Body imageRoot: ImageRoot
+    ): Response<ImageRoot>
 
     @PUT("products/{id}.json")
-    suspend fun updateProduct(@Path("id") id : Long , @Body secondProductModel: SecondProductModel) : Response<SecondProductModel>
+    suspend fun updateProduct(
+        @Path("id") id: Long,
+        @Body secondProductModel: SecondProductModel
+    ): Response<SecondProductModel>
 
     // price rule
     @POST("price_rules.json")
     suspend fun createPriceRule(@Body priceRuleRoot: PriceRuleRoot)
 
     @GET("price_rules.json")
-    suspend fun getAllPriceRule() : Response<PriceRuleResponse>
+    suspend fun getAllPriceRule(): Response<PriceRuleResponse>
+
+    @GET("price_rules/{id}/discount_codes.json")
+    suspend fun getAllDiscounts(@Path("id") id: Long): Response<DiscountRoot>
 }
