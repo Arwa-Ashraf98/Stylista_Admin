@@ -14,7 +14,7 @@
         android:contentDescription="@string/image"
         android:scaleType="fitXY"
         android:src="@drawable/wave"
-        app:tint="@color/navy"
+        app:tint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +26,7 @@
         android:contentDescription="@string/image"
         android:scaleType="fitXY"
         android:src="@drawable/wave3"
-        app:tint="@color/navy"
+        app:tint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

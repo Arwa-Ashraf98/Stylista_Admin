@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_4sdp"
+    app:cardCornerRadius="@dimen/_16sdp"
+    app:cardElevation="@dimen/_16sdp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:id="@+id/layout_priceRule"
+        >
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/price_rule_iv"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_margin="@dimen/_8sdp"
+            android:src="@drawable/price"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearance="@style/Circle" />
+
+        <TextView
+            android:id="@+id/text_view_price_rule"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/price_rule_iv"
+            app:layout_constraintTop_toTopOf="@id/price_rule_iv"
+            app:layout_constraintBottom_toBottomOf="@id/price_rule_iv"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:text="@string/price_rules"
+            android:textSize="@dimen/_16ssp"
+            android:textColor="@color/black"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:gravity="start"
+            />
+
+        <ImageView
+            android:id="@+id/image_view_delete_price_rule"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="@string/image"
+            android:src="@drawable/delete"
+            android:layout_margin="@dimen/_8sdp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>

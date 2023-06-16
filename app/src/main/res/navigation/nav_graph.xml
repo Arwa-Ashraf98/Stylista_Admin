@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_homeFragment2_to_productFragment"
             app:destination="@id/productFragment" />
+        <action
+            android:id="@+id/action_homeFragment2_to_priceRuleFragment"
+            app:destination="@id/priceRuleFragment" />
     </fragment>
     <fragment
         android:id="@+id/productFragment"
@@ -68,4 +71,9 @@
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/priceRuleFragment"
+        android:name="com.mad43.staylistaadmin.priceRule.presentation.ui.PriceRuleFragment"
+        android:label="fragment_price_rule"
+        tools:layout="@layout/fragment_price_rule" />
 </navigation>

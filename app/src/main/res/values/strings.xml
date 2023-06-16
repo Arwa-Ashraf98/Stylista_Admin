@@ -69,4 +69,5 @@
     <string name="wrong_password">wrong passowrd</string>
     <string name="empty_password">Password shouldnot be empty</string>
     <string name="empty_shop_name">ShopName shouldnot be empty</string>
+    <string name="price_rules">Price Rules</string>
 </resources>
