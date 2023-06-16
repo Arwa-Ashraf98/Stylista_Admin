@@ -75,5 +75,18 @@
         android:id="@+id/priceRuleFragment"
         android:name="com.mad43.staylistaadmin.priceRule.presentation.ui.PriceRuleFragment"
         android:label="fragment_price_rule"
-        tools:layout="@layout/fragment_price_rule" />
+        tools:layout="@layout/fragment_price_rule" >
+        <action
+            android:id="@+id/action_priceRuleFragment_to_discountFragment"
+            app:destination="@id/discountFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/discountFragment"
+        android:name="com.mad43.staylistaadmin.discount.presentation.getAllDiscounts.ui.DiscountFragment"
+        android:label="fragment_discount"
+        tools:layout="@layout/fragment_discount" >
+        <argument
+            android:name="id"
+            app:argType="long" />
+    </fragment>
 </navigation>

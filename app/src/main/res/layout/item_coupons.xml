@@ -13,42 +13,41 @@
         >
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/price_rule_iv"
+            android:id="@+id/coupons_iv"
             android:layout_width="@dimen/_50sdp"
             android:layout_height="@dimen/_50sdp"
             android:layout_margin="@dimen/_8sdp"
-            android:src="@drawable/price"
+            android:src="@drawable/discount"
+            android:scaleType="centerInside"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearance="@style/Circle" />
 
         <TextView
-            android:id="@+id/text_view_price_rule"
+            android:id="@+id/text_view_coupons"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toStartOf="@id/image_view_delete_price_rule"
-            app:layout_constraintStart_toEndOf="@id/price_rule_iv"
-            app:layout_constraintTop_toTopOf="@id/price_rule_iv"
-            app:layout_constraintBottom_toBottomOf="@id/price_rule_iv"
             android:layout_marginHorizontal="@dimen/_8sdp"
-            android:text="@string/price_rules"
-            android:textSize="@dimen/_14ssp"
-            android:textColor="@color/black"
             android:paddingHorizontal="@dimen/_8sdp"
-            android:gravity="start"
-            />
+            android:text="@string/discounts"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintEnd_toStartOf="@id/image_view_delete_coupons"
+            app:layout_constraintBottom_toBottomOf="@id/coupons_iv"
+            app:layout_constraintStart_toEndOf="@id/coupons_iv"
+            app:layout_constraintTop_toTopOf="@id/coupons_iv" />
 
         <ImageView
-            android:id="@+id/image_view_delete_price_rule"
+            android:id="@+id/image_view_delete_coupons"
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_35sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_margin="@dimen/_8sdp"
             android:contentDescription="@string/image"
             android:src="@drawable/delete"
-            android:layout_margin="@dimen/_8sdp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
