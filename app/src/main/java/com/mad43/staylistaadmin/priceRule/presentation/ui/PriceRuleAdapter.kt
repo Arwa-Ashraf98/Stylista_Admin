@@ -46,7 +46,11 @@ class PriceRuleAdapter() : Adapter<PriceRuleAdapter.PriceRuleHolder>() {
         init {
             binding.apply {
                 textViewPriceRule.setOnClickListener {
-                    setOnPriceRuleClickListener?.onPriceRuleClickListener(list[layoutPosition].id)
+                    setOnPriceRuleClickListener?.onPriceRuleClickListener(list[layoutPosition].id, list[layoutPosition])
+                }
+
+                imageViewDeletePriceRule.setOnClickListener {
+                    setOnPriceRuleClickListener?.onDeletePriceRule(list[layoutPosition].id)
                 }
 
             }
@@ -54,6 +58,7 @@ class PriceRuleAdapter() : Adapter<PriceRuleAdapter.PriceRuleHolder>() {
     }
 
     interface OnPriceRuleListener {
-        fun onPriceRuleClickListener(id: Long)
+        fun onDeletePriceRule(id: Long)
+        fun onPriceRuleClickListener(id: Long , priceRule: PriceRule)
     }
 }

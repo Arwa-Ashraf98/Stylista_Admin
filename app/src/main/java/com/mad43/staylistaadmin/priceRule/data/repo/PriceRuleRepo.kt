@@ -13,4 +13,8 @@ class PriceRuleRepo(private val priceRuleRemoteSourceInterface: PriceRuleRemoteS
     override suspend fun getAllPriceRules(): Flow<Response<PriceRuleResponse>> {
         return flowOf(priceRuleRemoteSourceInterface.getAllPriceRules())
     }
+
+    override suspend fun deletePriceRule(id: Long): Flow<Response<Void>> {
+        return flowOf(priceRuleRemoteSourceInterface.deletePriceRule(id))
+    }
 }

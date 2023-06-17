@@ -7,5 +7,6 @@ import retrofit2.Response
 interface PriceRuleRepoInterface {
 
     suspend fun getAllPriceRules() : Flow<Response<PriceRuleResponse>>
+    suspend fun deletePriceRule(id: Long) : Flow<Response<Void>>
 
 }

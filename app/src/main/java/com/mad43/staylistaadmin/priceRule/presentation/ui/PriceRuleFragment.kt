@@ -1,28 +1,24 @@
 package com.mad43.staylistaadmin.priceRule.presentation.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import com.mad43.staylistaadmin.R
 import com.mad43.staylistaadmin.databinding.FragmentPriceRuleBinding
-import com.mad43.staylistaadmin.discount.presentation.ui.DiscountFragmentArgs
 import com.mad43.staylistaadmin.priceRule.data.entity.PriceRule
 import com.mad43.staylistaadmin.priceRule.data.remote.PriceRuleRemoteSource
 import com.mad43.staylistaadmin.priceRule.data.repo.PriceRuleRepo
 import com.mad43.staylistaadmin.priceRule.presentation.viewModel.PriceRuleViewModel
 import com.mad43.staylistaadmin.priceRule.presentation.viewModel.PriceRuleViewModelFactory
-import com.mad43.staylistaadmin.product.presentation.getAllProduct.ui.ProductFragmentDirections
-import com.mad43.staylistaadmin.utils.PriceRuleAPIState
-import com.mad43.staylistaadmin.utils.hideProgress
-import com.mad43.staylistaadmin.utils.showProgress
-import com.mad43.staylistaadmin.utils.showToast
+import com.mad43.staylistaadmin.utils.*
 import kotlinx.coroutines.launch
 
 
@@ -61,9 +57,15 @@ class PriceRuleFragment : Fragment() {
 
     private fun onClicks() {
         adapter.setOnPriceRuleClickListener(object : PriceRuleAdapter.OnPriceRuleListener {
-            override fun onPriceRuleClickListener(id: Long) {
-                val action =
-                    PriceRuleFragmentDirections.actionPriceRuleFragmentToDiscountFragment(id)
+            override fun onDeletePriceRule(id: Long) {
+                showDialog(id)
+            }
+
+            override fun onPriceRuleClickListener(id: Long, priceRule: PriceRule) {
+                val action = PriceRuleFragmentDirections.actionPriceRuleFragmentToDiscountFragment(
+                    id,
+                    priceRule
+                )
                 findNavController().navigate(action)
             }
         })
@@ -72,11 +74,18 @@ class PriceRuleFragment : Fragment() {
             imageViewBack.setOnClickListener {
                 Navigation.findNavController(it).navigateUp()
             }
-
-            btnCreatePriceRule.setOnClickListener {
-
-            }
         }
+    }
+
+    private fun showDialog(id: Long) {
+        Dialogs.showConfirmationDialog(
+            requireActivity().applicationContext,
+            requireActivity().getString(R.string.delete_price_rule), {
+                this@PriceRuleFragment.priceRuleViewModel.deletePriceRule(id)
+            }, {
+                showToast(requireActivity().getString(R.string.deleted_cancelled))
+            }
+        )
     }
 
     private fun observeData() {

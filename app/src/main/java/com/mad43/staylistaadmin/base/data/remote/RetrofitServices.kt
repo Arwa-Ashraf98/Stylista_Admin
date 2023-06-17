@@ -1,21 +1,14 @@
 package com.mad43.staylistaadmin.base.data.remote
 
+import com.mad43.staylistaadmin.discount.data.entity.DiscountDetailsRoot
 import com.mad43.staylistaadmin.discount.data.entity.DiscountRoot
 import com.mad43.staylistaadmin.priceRule.data.entity.PriceRuleResponse
 import com.mad43.staylistaadmin.priceRule.data.entity.PriceRuleRoot
 import com.mad43.staylistaadmin.product.data.entity.ImageRoot
-import com.mad43.staylistaadmin.product.data.entity.Product
 import com.mad43.staylistaadmin.product.data.entity.ProductModel
 import com.mad43.staylistaadmin.product.data.entity.SecondProductModel
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.DELETE
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.PUT
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface RetrofitServices {
     // products request
@@ -57,4 +50,30 @@ interface RetrofitServices {
 
     @GET("price_rules/{id}/discount_codes.json")
     suspend fun getAllDiscounts(@Path("id") id: Long): Response<DiscountRoot>
+
+    @GET("price_rules/{price_rule_id}/discount_codes/{discount_id}.json")
+    suspend fun getPriceById(
+        @Path("price_rule_id") priceRuleId: Long,
+        @Path("discount_id") discountId: Long
+    ): Response<DiscountDetailsRoot>
+
+    @DELETE("price_rules/{id}.json")
+    suspend fun deletePriceRule(@Path("id") id: Long): Response<Void>
+
+    @DELETE("price_rules/{price_rule_id}/discount_codes/{discount_id}.json")
+    suspend fun deleteDiscount(
+        @Path("price_rule_id") priceRuleId: Long,
+        @Path("discount_id") discountId: Long
+    ): Response<Void>
+
+    @PUT("price_rules/{price_rule_id}/discount_codes/{discount_id}.json")
+    suspend fun updateDiscount(
+        @Path("price_rule_id") priceRuleId: Long,
+        @Path("discount_id") discountId: Long,
+        @Body discountDetailsRoot: DiscountDetailsRoot
+    ): Response<DiscountDetailsRoot>
+
+    @POST("price_rules/{price_rule_id}/discount_codes.json")
+    suspend fun createDiscount(@Path("price_rule_id") priceRuleId: Long , @Body discountDetailsRoot: DiscountDetailsRoot): Response<DiscountDetailsRoot>
+
 }

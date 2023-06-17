@@ -16,6 +16,7 @@
     <color name="light_burgendy">#A6702A46</color>
     <color name="text_color">#F3F3F3</color>
     <color name="primary_color">#a02d4a</color>
-    <color name="arwa">#36702A46</color>
+    <color name="transparent">#36702A46</color>
     <color name="grey">#B6B3B3</color>
+    <color name="green_success">#155724</color>
 </resources>

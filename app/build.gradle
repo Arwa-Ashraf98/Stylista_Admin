@@ -3,7 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs'
-//    id "com.google.dagger.hilt.android"
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -16,6 +16,7 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
+        buildConfigField "String" , "API_ACCESS_TOKEN" ,"\"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\""
         buildConfigField "String", "API_KEY", "\"AIzaSyAVRNpZKTubdM9mp3L9HaE8XGj09eNoV1o\""
         buildConfigField "String", "ADMIN_ACCESS_TOKEN", "\"45a66d369cb64350b186887a3e732e9d\""
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

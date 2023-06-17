@@ -20,5 +20,7 @@ object Const {
     const val SIZE = "size"
     const val PRICE = "price"
     const val UPDATE = "update"
+    const val DISCOUNT_CODE = "discountCode"
+    const val PRICE_RULE_ID = "price_rule_id"
 
 }

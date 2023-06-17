@@ -71,4 +71,22 @@
     <string name="empty_shop_name">ShopName shouldnot be empty</string>
     <string name="price_rules">Price Rules</string>
     <string name="discounts">Discounts</string>
+    <string name="discount_details">Discount Details</string>
+    <string name="code">Code:</string>
+    <string name="date">Date:</string>
+    <string name="value">Value :</string>
+    <string name="limits">Limits :</string>
+    <string name="delete_price_rule">Are yo sure you want to delete this price rule ??</string>
+    <string name="delete_discount">Are you sure you wan to delete this discount code?</string>
+    <string name="create_discount">Create Discount</string>
+    <string name="discount_code">Discount Code :</string>
+    <string name="enter_discount_code">Enter Discount Code</string>
+    <string name="cancel">cancel</string>
+    <string name="create">Create</string>
+    <string name="discount_code_empty">Discount Code must not be empty</string>
+    <string-array name="typeArray">
+        <item>SHOES</item>
+        <item>ACCESSORIES</item>
+        <item>T-SHIRT</item>
+    </string-array>
 </resources>

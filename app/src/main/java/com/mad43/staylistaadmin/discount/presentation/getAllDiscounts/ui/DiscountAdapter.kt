@@ -14,6 +14,13 @@ class DiscountAdapter : Adapter<DiscountAdapter.DiscountHolder>() {
         this.list = list
     }
 
+    private var setOnDiscountClickListener: DiscountClickListener? = null
+
+
+    fun setOnDiscountClickListener(setOnDiscountClickListener: DiscountClickListener) {
+        this.setOnDiscountClickListener = setOnDiscountClickListener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DiscountHolder {
         val binding = ItemCouponsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return DiscountHolder(binding)
@@ -29,6 +36,28 @@ class DiscountAdapter : Adapter<DiscountAdapter.DiscountHolder>() {
     }
 
     inner class DiscountHolder(var binding: ItemCouponsBinding) : ViewHolder(binding.root) {
+        init {
+            binding.apply {
+                textViewCoupons.setOnClickListener {
+                    setOnDiscountClickListener?.onDiscountClickListener(
+                        list[layoutPosition].price_rule_id,
+                        list[layoutPosition].id
+                    )
+                }
 
+                imageViewDeleteCoupons.setOnClickListener {
+                    setOnDiscountClickListener?.onDeleteClickListener(
+                        list[layoutPosition].id,
+                        list[layoutPosition].price_rule_id
+                    )
+                }
+            }
+        }
+
+    }
+
+    interface DiscountClickListener {
+        fun onDiscountClickListener(priceRuleId: Long, discountId: Long)
+        fun onDeleteClickListener(discountId: Long, priceRuleId: Long)
     }
 }

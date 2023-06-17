@@ -59,7 +59,13 @@
         android:id="@+id/addProductFragment"
         android:name="com.mad43.staylistaadmin.product.presentation.addProduct.ui.AddProductFragment"
         android:label="fragment_add_product"
-        tools:layout="@layout/fragment_add_product" />
+        tools:layout="@layout/fragment_add_product" >
+        <action
+            android:id="@+id/action_addProductFragment_to_productFragment"
+            app:destination="@id/productFragment"
+            app:popUpTo="@id/homeFragment2"
+            app:popUpToInclusive="false" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.mad43.staylistaadmin.login.presentation.ui.LoginFragment"
@@ -88,5 +94,29 @@
         <argument
             android:name="id"
             app:argType="long" />
+        <action
+            android:id="@+id/action_discountFragment_to_discountDetailsFragment"
+            app:destination="@id/discountDetailsFragment" />
+        <argument
+            android:name="price_rule"
+            app:argType="com.mad43.staylistaadmin.priceRule.data.entity.PriceRule" />
+    </fragment>
+    <fragment
+        android:id="@+id/discountDetailsFragment"
+        android:name="com.mad43.staylistaadmin.discount.presentation.getDiscountDetails.ui.DiscountDetailsFragment"
+        android:label="fragment_discount_details"
+        tools:layout="@layout/fragment_discount_details" >
+        <argument
+            android:name="discount_id"
+            app:argType="long" />
+        <argument
+            android:name="price_rule_id"
+            app:argType="long" />
+        <argument
+            android:name="value"
+            app:argType="string" />
+        <argument
+            android:name="limits"
+            app:argType="integer" />
     </fragment>
 </navigation>
