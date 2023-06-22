@@ -1,4 +1,4 @@
-package com.mad43.staylistaadmin.priceRule.presentation.viewModel
+package com.mad43.staylistaadmin.priceRule.presentation.priceRule.viewModel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

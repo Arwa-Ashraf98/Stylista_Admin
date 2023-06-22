@@ -9,6 +9,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.Navigation
 import com.mad43.staylistaadmin.R
 import com.mad43.staylistaadmin.databinding.FragmentDiscountDetailsBinding
 import com.mad43.staylistaadmin.discount.data.entity.DiscountCode
@@ -17,6 +18,10 @@ import com.mad43.staylistaadmin.discount.data.remoteSource.DiscountRemoteSource
 import com.mad43.staylistaadmin.discount.data.repo.DiscountRepo
 import com.mad43.staylistaadmin.discount.presentation.getDiscountDetails.viewModel.DiscountDetailsViewModel
 import com.mad43.staylistaadmin.discount.presentation.getDiscountDetails.viewModel.DiscountDetailsViewModelFactory
+import com.mad43.staylistaadmin.priceRule.data.remote.PriceRuleRemoteSource
+import com.mad43.staylistaadmin.priceRule.data.repo.PriceRuleRepo
+import com.mad43.staylistaadmin.priceRule.presentation.priceRule.viewModel.PriceRuleViewModel
+import com.mad43.staylistaadmin.priceRule.presentation.priceRule.viewModel.PriceRuleViewModelFactory
 import com.mad43.staylistaadmin.utils.*
 import kotlinx.coroutines.launch
 
@@ -34,6 +39,7 @@ class DiscountDetailsFragment : Fragment() {
     private lateinit var discountCode: DiscountCode
     private lateinit var discountDetailsRoot: DiscountDetailsRoot
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,6 +56,7 @@ class DiscountDetailsFragment : Fragment() {
         limits = DiscountDetailsFragmentArgs.fromBundle(requireArguments()).limits
         value = DiscountDetailsFragmentArgs.fromBundle(requireArguments()).value
         initViewModel()
+
         discountDetailsVM.getDiscountById(priceRuleId = priceRuleId, discountId = discountId)
         observeData()
         onClicks()
@@ -110,8 +117,11 @@ class DiscountDetailsFragment : Fragment() {
                     btnEditDiscount.setImageResource(R.drawable.baseline_edit_24)
                     getData()
                     observeUpdate()
-
                 }
+            }
+
+            imageViewBack.setOnClickListener {
+                Navigation.findNavController(it).navigateUp()
             }
         }
     }

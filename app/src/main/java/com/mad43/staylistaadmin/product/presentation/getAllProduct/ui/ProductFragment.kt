@@ -2,10 +2,10 @@ package com.mad43.staylistaadmin.product.presentation.getAllProduct.ui
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -15,7 +15,6 @@ import androidx.navigation.fragment.findNavController
 import com.mad43.staylistaadmin.R
 import com.mad43.staylistaadmin.databinding.FragmentProductBinding
 import com.mad43.staylistaadmin.product.data.entity.Product
-import com.mad43.staylistaadmin.product.data.entity.Variant
 import com.mad43.staylistaadmin.product.data.remote.RemoteSource
 import com.mad43.staylistaadmin.product.data.repo.Repo
 import com.mad43.staylistaadmin.product.presentation.getAllProduct.viewModel.ProductViewModel
@@ -45,16 +44,16 @@ class ProductFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.e("TAG", "onViewCreated: ", )
+        Log.e("TAG", "onViewCreated: ")
         id = 0L
         networkChecker = NetworkChecker()
         adapter = ProductAdapter()
         initViewModel()
-        lifecycleScope.launchWhenStarted {
-            productViewModel.getAllProduct()
-        }
+        getAllProduct()
         getData()
+        swipeToRefresh()
         onClicks()
+
 
     }
 
@@ -65,6 +64,23 @@ class ProductFragment : Fragment() {
             this,
             productViewModelFactory
         )[ProductViewModel::class.java]
+    }
+
+    private fun getAllProduct() {
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                productViewModel.getAllProduct()
+
+            }
+        }
+    }
+
+    private fun swipeToRefresh() {
+        binding.swipeHome.setOnRefreshListener {
+            getAllProduct()
+            getData()
+            binding.swipeHome.isRefreshing = false
+        }
     }
 
     private fun getData() {
@@ -176,7 +192,7 @@ class ProductFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.e("TAG", "onDestroyView: ",)
+        Log.e("TAG", "onDestroyView: ")
         _binding = null
     }
 

@@ -22,5 +22,12 @@ object Const {
     const val UPDATE = "update"
     const val DISCOUNT_CODE = "discountCode"
     const val PRICE_RULE_ID = "price_rule_id"
+    const val TITLE = "title"
+    const val VALUE = "value"
+    const val VALUE_TYPE = "valueType"
+    const val LIMIT = "limit"
+    const val START_DATE = "startDate"
+    const val END_DATE = "endDate"
+
 
 }

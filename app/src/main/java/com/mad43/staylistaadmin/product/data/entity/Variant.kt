@@ -10,7 +10,7 @@ data class Variant(
     val id: Long? = 0L,
     val image_id: Any? = null,
     val inventory_item_id: Long? = 0L,
-    val inventory_management: String? = "",
+    val inventory_management: String? = "shopify",
     val inventory_policy: String? = "deny",
     val inventory_quantity: Int? = 0,
     val old_inventory_quantity: Int? = 0,

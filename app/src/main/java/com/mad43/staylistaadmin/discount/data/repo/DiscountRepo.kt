@@ -4,6 +4,7 @@ import com.mad43.staylistaadmin.discount.data.entity.DiscountDetailsRoot
 import com.mad43.staylistaadmin.discount.data.entity.DiscountRoot
 import com.mad43.staylistaadmin.discount.domain.remot.DiscountRemoteSourceInterface
 import com.mad43.staylistaadmin.discount.domain.repo.DiscountRepoInterface
+import com.mad43.staylistaadmin.priceRule.data.entity.PriceRuleRoot
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import retrofit2.Response
@@ -23,9 +24,9 @@ class DiscountRepo(private val remoteSource: DiscountRemoteSourceInterface) :
 
     override suspend fun updateDiscount(
         priceRuleId: Long,
-        discountId: Long , discountDetailsRoot: DiscountDetailsRoot
+        discountId: Long, discountDetailsRoot: DiscountDetailsRoot
     ): Flow<Response<DiscountDetailsRoot>> {
-       return flowOf(remoteSource.updateDiscount(priceRuleId, discountId, discountDetailsRoot))
+        return flowOf(remoteSource.updateDiscount(priceRuleId, discountId, discountDetailsRoot))
     }
 
 
@@ -33,7 +34,22 @@ class DiscountRepo(private val remoteSource: DiscountRemoteSourceInterface) :
         return flowOf(remoteSource.deleteDiscount(priceRuleId, discountId))
     }
 
-    override suspend fun createDiscount(priceRuleId: Long , discountDetailsRoot: DiscountDetailsRoot): Flow<Response<DiscountDetailsRoot>> {
-        return flowOf(remoteSource.createDiscount(priceRuleId , discountDetailsRoot))
+    override suspend fun getPriceRuleById(priceRuleId: Long ): Flow<Response<PriceRuleRoot>> {
+        return flowOf(remoteSource.getPriceRuleById(priceRuleId))
+    }
+
+    override suspend fun updatePriceRuleBy(
+        priceRuleId: Long,
+        priceRuleRoot: PriceRuleRoot
+    ): Flow<Response<PriceRuleRoot>> {
+        return flowOf(remoteSource.updatePriceRule(priceRuleId, priceRuleRoot))
+    }
+
+
+    override suspend fun createDiscount(
+        priceRuleId: Long,
+        discountDetailsRoot: DiscountDetailsRoot
+    ): Flow<Response<DiscountDetailsRoot>> {
+        return flowOf(remoteSource.createDiscount(priceRuleId, discountDetailsRoot))
     }
 }

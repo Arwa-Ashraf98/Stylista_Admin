@@ -68,14 +68,16 @@ class SizeAdapter() : Adapter<SizeAdapter.SizeHolder>() {
                 textViewSize.setOnClickListener {
                     rowIndex = layoutPosition
                     notifyDataSetChanged()
-
-                    onSizeItemClickListener?.setOnSizeItemClickListener(variantList[layoutPosition].inventory_quantity.toString())
+                    onSizeItemClickListener?.setOnSizeItemClickListener(
+                        variantList[layoutPosition].inventory_quantity.toString(),
+                        variantList[layoutPosition].inventory_item_id!!
+                    )
                 }
             }
         }
     }
 
     interface OnSizeItemClickListener {
-        fun setOnSizeItemClickListener(quantity: String)
+        fun setOnSizeItemClickListener(quantity: String, inventoryItemId: Long)
     }
 }

@@ -1,12 +1,13 @@
 package com.mad43.staylistaadmin.product.presentation.addProduct.ui
 
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.ArrayAdapter
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -34,6 +35,7 @@ class AddProductFragment : Fragment() {
     private var option2: Option? = null
     private lateinit var secondProductModel: SecondProductModel
     private lateinit var imageRoot: ImageRoot
+    private var type = ""
 
 
     override fun onCreateView(
@@ -64,7 +66,7 @@ class AddProductFragment : Fragment() {
     private fun onClicks() {
         binding.apply {
             btnSaveProduct.setOnClickListener {
-                val type = editTextProductTypeAdd.text.toString().trim()
+                type = autoCompleteTextViewtype.text.toString().trim()
                 val title = editTextProductName.text.toString().trim()
                 val poster = editTextPoster.text.toString().trim()
                 val tags = editTextProductTags.text.toString().trim()
@@ -81,11 +83,17 @@ class AddProductFragment : Fragment() {
                 observeProductValidation(type, title, vendor, poster, tags, description)
             }
 
+            autoCompleteTextViewtype.setOnItemClickListener { adapterView, view, i, l ->
+                type = autoCompleteTextViewtype.text.toString().trim()
+                this@AddProductFragment.addProductViewModel.setType(type)
+                setSizeType()
+            }
+
             btnNext.setOnClickListener {
-                if (btnNext.isClickable){
+                if (btnNext.isClickable) {
                     val quantity = binding.editTextProductQuantityAdd.text.toString().trim()
                     val size = binding.editTextProductSizeAdd.text.toString().trim()
-                    val color = binding.editTextColorAdd.text.toString().trim()
+                    val color = binding.autoCompleteTextViewColor.text.toString().trim()
                     val price = binding.editTextPriceAdd.text.toString().trim()
                     val q: Int = if (quantity.isEmpty()) {
                         0
@@ -104,7 +112,7 @@ class AddProductFragment : Fragment() {
                         size = size,
                         quantity = q
                     )
-                }else {
+                } else {
                     showToast(getString(R.string.this_button_is_not_clickable))
                 }
             }
@@ -112,11 +120,11 @@ class AddProductFragment : Fragment() {
             btnDone.setOnClickListener {
                 binding.apply {
                     editTextProductSizeAdd.clearText()
-                    editTextColorAdd.clearText()
+                    autoCompleteTextViewColor.clearText()
                     editTextPriceAdd.clearText()
                     editTextProductQuantityAdd.clearText()
                     editTextProductSizeAdd.unEnableEditText()
-                    editTextColorAdd.unEnableEditText()
+                    autoCompleteTextViewColor.unEnableEditText()
                     editTextPriceAdd.unEnableEditText()
                     editTextProductQuantityAdd.unEnableEditText()
                     btnNext.disableButton()
@@ -125,14 +133,17 @@ class AddProductFragment : Fragment() {
             }
 
             btnNextImage.setOnClickListener {
-                if (btnDone.isClickable){
+                if (btnDone.isClickable) {
                     val imageUrl = binding.editTextProductImageUriAdd.text.toString().trim()
                     this@AddProductFragment.addProductViewModel.validateImageUrl(imageUrl)
                     observeImageUrl(imageUrl)
-                }else {
+                } else {
                     showToast(getString(R.string.this_button_is_not_clickable))
                 }
+            }
 
+            imageViewBack.setOnClickListener {
+                Navigation.findNavController(it).navigateUp()
             }
 
             btnDoneImage.setOnClickListener {
@@ -142,6 +153,63 @@ class AddProductFragment : Fragment() {
             }
 
         }
+    }
+
+    private fun setSizeType() {
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                this@AddProductFragment.addProductViewModel.type.collect {
+                    if (it.equals("shoes", true)) {
+                        binding.editTextProductSizeAdd.enableEditText()
+                        binding.editTextProductSizeAdd.inputType =
+                            InputType.TYPE_CLASS_NUMBER
+                    } else if (it.equals("accessories", true)) {
+                        binding.editTextProductSizeAdd.unEnableEditText()
+                    } else {
+                        binding.editTextProductSizeAdd.enableEditText()
+                        binding.editTextProductSizeAdd.inputType =
+                            InputType.TYPE_CLASS_TEXT
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setTypeArray()
+        setColorArray()
+        setCategoryArray()
+    }
+
+    private fun setCategoryArray() {
+        val stringArrayColor = resources.getStringArray(R.array.categoryType)
+        val categoryAdapter = ArrayAdapter(
+            requireActivity().applicationContext,
+            R.layout.item_type_drop_down,
+            stringArrayColor
+        )
+        binding.editTextProductTags.setAdapter(categoryAdapter)
+    }
+
+    private fun setColorArray() {
+        val stringArrayColor = resources.getStringArray(R.array.color)
+        val colorAdapter = ArrayAdapter(
+            requireActivity().applicationContext,
+            R.layout.item_type_drop_down,
+            stringArrayColor
+        )
+        binding.autoCompleteTextViewColor.setAdapter(colorAdapter)
+    }
+
+    private fun setTypeArray() {
+        val stringArray = resources.getStringArray(R.array.typeArray)
+        val typeAdapter = ArrayAdapter(
+            requireActivity().applicationContext,
+            R.layout.item_type_drop_down,
+            stringArray
+        )
+        binding.autoCompleteTextViewtype.setAdapter(typeAdapter)
     }
 
     private fun observeProductValidation(
@@ -190,7 +258,7 @@ class AddProductFragment : Fragment() {
                                     )
                                 }
                                 Const.PRODUCT_TYPE -> {
-                                    binding.editTextProductTypeAdd.setErrorMessage(
+                                    binding.autoCompleteTextViewtype.setErrorMessage(
                                         requireActivity().getString(
                                             it.message
                                         )
@@ -297,7 +365,7 @@ class AddProductFragment : Fragment() {
                                     editTextProductQuantityAdd.clearText()
                                     editTextProductSizeAdd.clearText()
                                     editTextPriceAdd.unEnableEditText()
-                                    editTextColorAdd.unEnableEditText()
+                                    autoCompleteTextViewColor.unEnableEditText()
                                 }
                             }
                         }
@@ -318,7 +386,7 @@ class AddProductFragment : Fragment() {
                                     )
                                 }
                                 Const.COLOR -> {
-                                    binding.editTextColorAdd.setErrorMessage(
+                                    binding.autoCompleteTextViewColor.setErrorMessage(
                                         requireActivity().getString(
                                             it.message
                                         )
@@ -350,6 +418,7 @@ class AddProductFragment : Fragment() {
                             // navigate to back and add object to variant list
                             val image = Image(src = url)
                             imageList.add(image)
+                            Log.e("TAG", imageList.toString())
                             binding.apply {
                                 editTextProductImageUriAdd.clearText()
                             }
@@ -382,6 +451,7 @@ class AddProductFragment : Fragment() {
                     when (it) {
                         is ValidateState.OnValidateSuccess -> {
                             binding.progressBarImage.hideProgress()
+                            Log.e("TAG", "observeUpdateImages: 000000", )
                             Navigation.findNavController(this@AddProductFragment.requireView())
                                 .navigateUp()
                         }

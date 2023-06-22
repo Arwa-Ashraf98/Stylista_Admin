@@ -1,10 +1,8 @@
 package com.mad43.staylistaadmin.product.presentation.addProduct.viewModel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mad43.staylistaadmin.R
-import com.mad43.staylistaadmin.base.data.remote.RetrofitConnection
 import com.mad43.staylistaadmin.product.data.entity.ImageRoot
 import com.mad43.staylistaadmin.product.data.entity.SecondProductModel
 import com.mad43.staylistaadmin.product.domain.repo.RepoInterface
@@ -15,7 +13,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class AddProductViewModel(private val repo: RepoInterface) : ViewModel() {
@@ -27,6 +24,13 @@ class AddProductViewModel(private val repo: RepoInterface) : ViewModel() {
     private val validationMutableStateFlow =
         MutableStateFlow<ValidateState>(ValidateState.BeforeValidation)
     val validationStateFlow: StateFlow<ValidateState> = validationMutableStateFlow
+    private val _type = MutableStateFlow<String>("")
+    val type: StateFlow<String> = _type
+
+
+    fun setType(type: String) {
+        _type.value = type
+    }
 
 
     fun validateVariantData(price: String, quantity: String?, color: String, size: String) {

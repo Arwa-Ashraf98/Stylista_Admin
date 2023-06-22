@@ -2,20 +2,19 @@ package com.mad43.staylistaadmin.product.presentation.productDetails.ui
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.Navigation
-import com.bumptech.glide.Glide
 import com.mad43.staylistaadmin.R
 import com.mad43.staylistaadmin.databinding.FragmentProductDetailsBinding
 import com.mad43.staylistaadmin.product.data.entity.Image
-import com.mad43.staylistaadmin.product.data.entity.Product
+import com.mad43.staylistaadmin.product.data.entity.InventoryLevel
 import com.mad43.staylistaadmin.product.data.entity.SecondProductModel
 import com.mad43.staylistaadmin.product.data.entity.Variant
 import com.mad43.staylistaadmin.product.data.remote.RemoteSource
@@ -36,6 +35,10 @@ class ProductDetailsFragment : Fragment() {
     private lateinit var secondProductModel: SecondProductModel
     private var id: Long? = null
     private var flag: Boolean = false
+    private var variantFlag = false
+    private lateinit var inventoryLevel: InventoryLevel
+    private var quantity: String = ""
+    private var inventoryId: Long = 0L
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,7 +58,7 @@ class ProductDetailsFragment : Fragment() {
         sizeAdapter = SizeAdapter()
         onClicks()
         getData()
-
+        swipeToRefresh()
     }
 
     private fun initViewModel() {
@@ -63,6 +66,14 @@ class ProductDetailsFragment : Fragment() {
             ProductDetailsViewModelFactory(Repo.getRepo(RemoteSource.getRemoteSource()))
         detailedProductViewModel =
             ViewModelProvider(this, detailedProductVMFactory)[ProductDetailsViewModel::class.java]
+    }
+
+    private fun swipeToRefresh() {
+        binding.swipDetails.setOnRefreshListener {
+            detailedProductViewModel.getProductById(id!!)
+            getData()
+            binding.swipDetails.isRefreshing = false
+        }
     }
 
     private fun getData() {
@@ -119,7 +130,7 @@ class ProductDetailsFragment : Fragment() {
                     editTextDetailedTitle.enableEditText()
                     editTextDetailedType.enableEditText()
                     editTextVendor.enableEditText()
-                }else {
+                } else {
                     btnSave.visibilityGone()
                     editTextDetailedTitle.unEnableEditText()
                     editTextDetailedType.unEnableEditText()
@@ -134,33 +145,68 @@ class ProductDetailsFragment : Fragment() {
                 secondProductModel.product.vendor = vendor
                 secondProductModel.product.title = title
                 secondProductModel.product.product_type = type
-                updateProduct(secondProductModel = secondProductModel , id = secondProductModel.product.id as Long)
+                updateProduct(
+                    secondProductModel = secondProductModel,
+                    id = secondProductModel.product.id as Long
+                )
                 observeUpdate()
             }
 
             imageViewBack.setOnClickListener {
                 Navigation.findNavController(it)
-                    .popBackStack()
+                    .navigateUp()
+            }
+
+            imageViewEdit.setOnClickListener {
+                variantFlag = !variantFlag
+                if (variantFlag) {
+                    binding.imageViewEdit.setImageResource(R.drawable.baseline_done_all_24)
+                    binding.editTextDetailedQuantity.enableEditText()
+                } else {
+                    getQuantity()
+                    binding.imageViewEdit.setImageResource(R.drawable.baseline_edit_24)
+                    binding.editTextDetailedQuantity.unEnableEditText()
+                }
             }
         }
 
+
+
         sizeAdapter.setOnItemSizeClickListener(object : SizeAdapter.OnSizeItemClickListener {
-            override fun setOnSizeItemClickListener(quantity: String) {
+            override fun setOnSizeItemClickListener(quantity: String, inventoryItemId: Long) {
                 binding.editTextDetailedQuantity.setText(quantity)
+                this@ProductDetailsFragment.quantity = quantity
+                this@ProductDetailsFragment.inventoryId = inventoryItemId
             }
 
         })
     }
 
-    private fun updateProduct(id : Long , secondProductModel: SecondProductModel){
-        detailedProductViewModel.updateProductById(id , secondProductModel)
+    private fun getQuantity() {
+        var quantity = binding.editTextDetailedQuantity.text.toString().trim()
+        quantity = if (quantity.isEmpty()) {
+            "0"
+        } else {
+            binding.editTextDetailedQuantity.text.toString().trim()
+        }
+        inventoryLevel = InventoryLevel(quantity.toInt(), inventoryId)
+        if (quantity != this@ProductDetailsFragment.quantity && quantity != "0") {
+            detailedProductViewModel.updateQuantity(inventoryLevel)
+            observeUpdateQuantity()
+        } else {
+            showToast(requireActivity().getString(R.string.quantity_same))
+        }
     }
 
-    private fun observeUpdate(){
+    private fun updateProduct(id: Long, secondProductModel: SecondProductModel) {
+        detailedProductViewModel.updateProductById(id, secondProductModel)
+    }
+
+    private fun observeUpdate() {
         lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
-                detailedProductViewModel.dataStateFlow.collect{
-                    when(it){
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                detailedProductViewModel.dataStateFlow.collect {
+                    when (it) {
                         is ProductAPIState.OnSuccess -> {
                             binding.progressBarDeatils.hideProgress()
                             showToast(requireActivity().getString(R.string.success))
@@ -183,6 +229,31 @@ class ProductDetailsFragment : Fragment() {
         }
     }
 
+    private fun observeUpdateQuantity() {
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                detailedProductViewModel.inventoryStateFlow.collect {
+                    when (it) {
+                        is InventoryLevelAPIState.OnSuccess -> {
+                            binding.progressBarDeatils.hideProgress()
+                            val data = it.inventoryLevelRoot.inventory_level
+                            this@ProductDetailsFragment.quantity = data.available.toString()
+
+                        }
+
+                        is InventoryLevelAPIState.OnFail -> {
+                            binding.progressBarDeatils.hideProgress()
+                            showToast(it.errorMessage.localizedMessage)
+                        }
+
+                        is InventoryLevelAPIState.Loading -> {
+                            binding.progressBarDeatils.showProgress()
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     private fun initImageRecycler(list: List<Image>) {
         imageAdapter.setList(list)

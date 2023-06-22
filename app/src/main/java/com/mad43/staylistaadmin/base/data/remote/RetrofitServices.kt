@@ -7,6 +7,8 @@ import com.mad43.staylistaadmin.priceRule.data.entity.PriceRuleRoot
 import com.mad43.staylistaadmin.product.data.entity.ImageRoot
 import com.mad43.staylistaadmin.product.data.entity.ProductModel
 import com.mad43.staylistaadmin.product.data.entity.SecondProductModel
+import com.mad43.staylistaadmin.product.data.entity.InventoryLevel
+import com.mad43.staylistaadmin.product.data.entity.InventoryLevelRoot
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -43,7 +45,7 @@ interface RetrofitServices {
 
     // price rule
     @POST("price_rules.json")
-    suspend fun createPriceRule(@Body priceRuleRoot: PriceRuleRoot)
+    suspend fun createPriceRule(@Body priceRuleRoot: PriceRuleRoot): Response<PriceRuleRoot>
 
     @GET("price_rules.json")
     suspend fun getAllPriceRule(): Response<PriceRuleResponse>
@@ -74,6 +76,23 @@ interface RetrofitServices {
     ): Response<DiscountDetailsRoot>
 
     @POST("price_rules/{price_rule_id}/discount_codes.json")
-    suspend fun createDiscount(@Path("price_rule_id") priceRuleId: Long , @Body discountDetailsRoot: DiscountDetailsRoot): Response<DiscountDetailsRoot>
+    suspend fun createDiscount(
+        @Path("price_rule_id") priceRuleId: Long,
+        @Body discountDetailsRoot: DiscountDetailsRoot
+    ): Response<DiscountDetailsRoot>
+
+    @POST("price_rules/{id}.json")
+    suspend fun getPriceRuleById(@Path("id") priceRuleId: Long): Response<PriceRuleRoot>
+
+    @PUT("price_rules/{id}.json")
+    suspend fun updatePriceRule(
+        @Path("id") priceRuleId: Long,
+        @Body priceRuleRoot: PriceRuleRoot
+    ): Response<PriceRuleRoot>
+
+
+    // variants
+    @POST("inventory_levels/set.json")
+    suspend fun updateQuantity(@Body inventoryLevel: InventoryLevel): Response<InventoryLevelRoot>
 
 }

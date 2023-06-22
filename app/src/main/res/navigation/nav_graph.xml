@@ -79,12 +79,15 @@
     </fragment>
     <fragment
         android:id="@+id/priceRuleFragment"
-        android:name="com.mad43.staylistaadmin.priceRule.presentation.ui.PriceRuleFragment"
+        android:name="com.mad43.staylistaadmin.priceRule.presentation.priceRule.ui.PriceRuleFragment"
         android:label="fragment_price_rule"
         tools:layout="@layout/fragment_price_rule" >
         <action
             android:id="@+id/action_priceRuleFragment_to_discountFragment"
             app:destination="@id/discountFragment" />
+        <action
+            android:id="@+id/action_priceRuleFragment_to_createPriceRuleFragment"
+            app:destination="@id/createPriceRuleFragment" />
     </fragment>
     <fragment
         android:id="@+id/discountFragment"
@@ -100,6 +103,9 @@
         <argument
             android:name="price_rule"
             app:argType="com.mad43.staylistaadmin.priceRule.data.entity.PriceRule" />
+        <action
+            android:id="@+id/action_discountFragment_to_createDiscountFragment"
+            app:destination="@id/createDiscountFragment" />
     </fragment>
     <fragment
         android:id="@+id/discountDetailsFragment"
@@ -119,4 +125,14 @@
             android:name="limits"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/createPriceRuleFragment"
+        android:name="com.mad43.staylistaadmin.priceRule.presentation.createPriceRule.ui.CreatePriceRuleFragment"
+        android:label="fragment_create_price_rule"
+        tools:layout="@layout/fragment_create_price_rule" />
+    <dialog
+        android:id="@+id/createDiscountFragment"
+        android:name="com.mad43.staylistaadmin.discount.presentation.createDiscount.ui.CreateDiscountFragment"
+        android:label="fragment_create_discount"
+        tools:layout="@layout/fragment_create_discount" />
 </navigation>

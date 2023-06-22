@@ -22,8 +22,8 @@ class Dialogs {
         fun showConfirmationDialog(
             context: Context?,
             message: String?,
-            onYes : Runnable,
-            onNo : Runnable
+            onYes: Runnable,
+            onNo: Runnable
         ) {
             val builder = AlertDialog.Builder(
                 context!!

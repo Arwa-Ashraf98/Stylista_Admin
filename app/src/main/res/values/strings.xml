@@ -84,9 +84,51 @@
     <string name="cancel">cancel</string>
     <string name="create">Create</string>
     <string name="discount_code_empty">Discount Code must not be empty</string>
+    <string name="title">Title :</string>
+    <string name="enter_price_rule_title">Enter Price Rule Title</string>
+    <string name="value_type">Value Type:</string>
+    <string name="enter_price_rule_value">Enter Price Rule Value</string>
+    <string name="enter_start_date">Enter Start Date</string>
+    <string name="starts_date">Starts Date :</string>
+    <string name="enter_end_date">Enter end Date</string>
+    <string name="end_date">End Date :</string>
+    <string name="add">Add</string>
     <string-array name="typeArray">
         <item>SHOES</item>
         <item>ACCESSORIES</item>
         <item>T-SHIRT</item>
     </string-array>
+    <string-array name="priceRuleType">
+        <item>fixed_amount</item>
+        <item>percentage</item>
+    </string-array>
+    <string-array name="color">
+        <item>BLACK</item>
+        <item>PINK</item>
+        <item>WHITE</item>
+        <item>BROWN</item>
+        <item>PURPLE</item>
+        <item>RED</item>
+        <item>BLUE</item>
+        <item>GREEN</item>
+        <item>YELLOW</item>
+        <item>GREY</item>
+        <item>LIGHT_BROWN</item>
+        <item>BURGUNDY</item>
+    </string-array>
+    <string-array name="categoryType">
+        <item>kid</item>
+        <item>men</item>
+        <item>women</item>
+        <item>sale</item>
+    </string-array>
+    <string name="title_must_not_be_empty">title must not be empty</string>
+    <string name="value_must_not_be_empty">value must not be empty</string>
+    <string name="value_type_must_not_be_empty">value type must not be empty</string>
+    <string name="start_date_must_not_be_empty">start date must not be empty</string>
+    <string name="end_date_must_not_be_empty">end date must not be empty</string>
+    <string name="limit_name_must_not_be_empty">limit name must not be empty</string>
+    <string name="limit">Limit :</string>
+    <string name="quantity_same">Quantity is The Same Nothing Changed</string>
+    <string name="category">Category</string>
 </resources>

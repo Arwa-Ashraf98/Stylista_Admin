@@ -34,17 +34,21 @@ class ProductAdapter : Adapter<ProductAdapter.Holder>() {
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val productModel = list[position]
         holder.binding.apply {
-            val date = "updated at : ${productModel.updated_at}"
+            val date = "updated at : ${Helpers.transformDate(productModel.updated_at)}"
             textViewDate.text = date
-            val price = "${productModel.variants?.get(0)?.price as String} EGP"
+            val price = "Price: ${productModel.variants?.get(0)?.price as String} EGP"
             textViewPrice.text = price
-            textViewProductDepartment.text = productModel.vendor
+            val vendor = "Vendor : ${productModel.vendor}"
+            textViewProductDepartment.text = vendor
+//            val titleList = productModel.title?.split("|")
+//            val title = "Name : ${titleList?.get(1)}"
             textViewProductName.text = productModel.title
             var totalQuantity = 0
             for(q in productModel.variants){
                 totalQuantity += (q.inventory_quantity) as Int
             }
-            textViewQuantity.text = totalQuantity.toString()
+            val quantity = "Quantity : $totalQuantity"
+            textViewQuantity.text = quantity
             Glide.with(holder.itemView.context)
                 .load(productModel.image?.src)
                 .error(R.drawable.error_image)

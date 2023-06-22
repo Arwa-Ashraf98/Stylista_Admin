@@ -1,13 +1,27 @@
+@file:Suppress("NAME_SHADOWING")
+
 package com.mad43.staylistaadmin.utils
 
+import android.annotation.SuppressLint
 import java.text.SimpleDateFormat
 import java.util.*
 
 object Helpers {
 
-    private const val WHOLE_DATE2 = "MMM dd, yyyy - EEE hh:mm a"
-    fun transformDate(date : String) : String{
-        val dateFormat = SimpleDateFormat(WHOLE_DATE2, Locale.getDefault())
-        return dateFormat.parse(date)?.toString() ?: ""
+    @SuppressLint("SimpleDateFormat")
+    fun transformDate(date: String?): String {
+        date?.let {
+            if (it.isBlank()){
+                return it
+            }
+
+            val dateTimeGlobalPattern  = "yyyy-MM-dd'T'HH:mm:ssXXX"
+            val dayPattern = "dd/MM/yyyy"
+
+            val format = SimpleDateFormat(dateTimeGlobalPattern , Locale.US)
+            val myDate = format.parse(it)
+            return SimpleDateFormat(dayPattern).format(myDate)
+        }
+        return ""
     }
 }

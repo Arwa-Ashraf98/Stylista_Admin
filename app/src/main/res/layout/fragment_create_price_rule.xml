@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".priceRule.presentation.createPriceRule.ui.CreatePriceRuleFragment">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_100sdp"
+        android:layout_gravity="bottom"
+        android:contentDescription="@string/image"
+        android:scaleType="fitXY"
+        android:src="@drawable/wave2" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/image_view_back"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_margin="@dimen/_8sdp"
+            android:contentDescription="@string/image"
+            android:src="@drawable/baseline_arrow_back_ios_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/black" />
+
+        <TextView
+            android:id="@+id/pricerule_craetion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:text="@string/price_rules"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_20sdp"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_back"
+            app:layout_constraintStart_toEndOf="@id/image_view_back"
+            app:layout_constraintTop_toTopOf="@id/image_view_back" />
+
+        <LinearLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/_16sdp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/pricerule_craetion">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:padding="@dimen/_4sdp"
+                    android:text="@string/title"
+                    android:textColor="@color/primary_color"
+                    android:textSize="@dimen/_18ssp" />
+
+                <EditText
+                    android:id="@+id/editText_price_rule_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:hint="@string/enter_price_rule_title"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:minEms="5"
+                    android:paddingHorizontal="@dimen/_4sdp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:padding="@dimen/_4sdp"
+                    android:text="@string/value_type"
+                    android:textColor="@color/primary_color"
+                    android:textSize="@dimen/_18ssp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:hint="@string/type"
+                    android:textColorHint="@color/primary_color"
+                    app:hintTextColor="@color/black"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/autoCompleteTextView_price_rule_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:autofillHints="none"
+                        android:inputType="none"
+                        android:text="@string/type" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:padding="@dimen/_4sdp"
+                    android:text="@string/value"
+                    android:textColor="@color/primary_color"
+                    android:textSize="@dimen/_18ssp" />
+
+                <EditText
+                    android:id="@+id/edit_text_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:hint="@string/enter_price_rule_value"
+                    android:inputType="numberSigned"
+                    android:maxLines="1"
+                    android:minEms="1"
+                    android:maxEms="4"
+                    android:paddingHorizontal="@dimen/_4sdp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:padding="@dimen/_4sdp"
+                    android:text="@string/starts_date"
+                    android:textColor="@color/primary_color"
+                    android:textSize="@dimen/_18ssp" />
+
+                <EditText
+                    android:id="@+id/edit_text_starts_at"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:hint="@string/enter_start_date"
+                    android:inputType="datetime"
+                    android:maxLines="1"
+                    android:paddingHorizontal="@dimen/_4sdp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:padding="@dimen/_4sdp"
+                    android:text="@string/end_date"
+                    android:textColor="@color/primary_color"
+                    android:textSize="@dimen/_18ssp" />
+
+                <EditText
+                    android:id="@+id/edit_text_end_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:hint="@string/enter_end_date"
+                    android:inputType="datetime"
+                    android:maxLines="1"
+                    android:paddingHorizontal="@dimen/_4sdp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:padding="@dimen/_4sdp"
+                    android:text="@string/limit"
+                    android:textColor="@color/primary_color"
+                    android:textSize="@dimen/_18ssp" />
+
+                <EditText
+                    android:id="@+id/edit_text_limit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:hint="@string/enter_price_rule_value"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:minEms="1"
+                    android:maxEms="2"
+                    android:paddingHorizontal="@dimen/_4sdp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_create_price_rule"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginVertical="@dimen/_8sdp"
+            android:backgroundTint="@color/primary_color"
+            android:paddingVertical="@dimen/_8sdp"
+            android:text="@string/add"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp"
+            app:cornerRadius="@dimen/_8sdp"
+            app:layout_constraintTop_toBottomOf="@id/layout" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</FrameLayout>

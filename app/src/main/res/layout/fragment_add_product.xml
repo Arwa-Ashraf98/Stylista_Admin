@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/_8sdp"
+    android:background="@drawable/splash"
     tools:context=".product.presentation.addProduct.ui.AddProductFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/background"
         android:layout_marginBottom="@dimen/_8sdp"
         android:paddingBottom="@dimen/_8sdp"
         >
@@ -17,7 +18,7 @@
             android:id="@+id/btn_save_product"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_save_alt_24"
+            android:src="@drawable/baseline_done_all_24"
             android:layout_margin="@dimen/_5sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -62,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_8sdp"
                 android:text="@string/product"
-                android:textColor="@color/navy"
+                android:textColor="@color/black"
                 android:textSize="@dimen/_16ssp"
                 android:textStyle="italic"
                 app:layout_constraintBottom_toTopOf="@id/productCard"
@@ -162,7 +163,7 @@
                                 android:hint="@string/enter_product_name"
                                 android:inputType="text"
                                 android:maxEms="15"
-                                android:maxLines="2"
+                                android:maxLines="1"
                                 android:paddingStart="@dimen/_4sdp"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp" />
@@ -185,19 +186,25 @@
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/addProducts" />
 
-                            <EditText
-                                android:id="@+id/edit_text_product_type_add"
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="@dimen/_4sdp"
-                                android:autofillHints="name"
-                                android:hint="@string/enter_product_type"
-                                android:inputType="text"
-                                android:maxEms="15"
-                                android:maxLines="1"
-                                android:paddingStart="@dimen/_4sdp"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_12ssp" />
+                                android:layout_marginHorizontal="16dp"
+                                android:hint="@string/type"
+                                android:textColorHint="@color/primary_color"
+                                app:hintTextColor="@color/black"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/autoCompleteTextViewtype"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:autofillHints="none"
+                                android:inputType="none"
+                                android:text="@string/type" />
+                            </com.google.android.material.textfield.TextInputLayout>
                         </LinearLayout>
 
                         <LinearLayout
@@ -283,20 +290,27 @@
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/addProducts" />
 
-                            <EditText
-                                android:id="@+id/edit_text_product_tags"
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="@dimen/_4sdp"
-                                android:autofillHints="name"
-                                android:hint="@string/enter_product_tags"
-                                android:inputType="text"
-                                android:maxEms="15"
-                                android:maxLines="2"
-                                android:paddingStart="@dimen/_4sdp"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_12ssp" />
+                                android:layout_marginHorizontal="16dp"
+                                android:hint="@string/category"
+                                android:textColorHint="@color/primary_color"
+                                app:hintTextColor="@color/black"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/edit_text_product_tags"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:autofillHints="none"
+                                    android:inputType="none"
+                                    android:text="@string/category" />
+                            </com.google.android.material.textfield.TextInputLayout>
                         </LinearLayout>
+
                     </LinearLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -308,7 +322,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_8sdp"
                 android:text="@string/variant"
-                android:textColor="@color/navy"
+                android:textColor="@color/black"
                 android:textSize="@dimen/_16ssp"
                 android:textStyle="italic"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -375,11 +389,15 @@
                                 android:autofillHints="name"
                                 android:hint="@string/enter_product_price"
                                 android:inputType="number"
-                                android:maxEms="15"
+                                android:maxLines="1"
+                                android:maxEms="4"
+                                android:minEms="3"
                                 android:paddingStart="@dimen/_4sdp"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp" />
                         </LinearLayout>
+
+
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -406,8 +424,9 @@
                                 android:autofillHints="name"
                                 android:hint="@string/enter_Product_Quantity"
                                 android:inputType="number"
-                                android:maxEms="15"
-                                android:maxLines="2"
+                                android:maxEms="2"
+                                android:minEms="1"
+                                android:maxLines="1"
                                 android:paddingStart="@dimen/_4sdp"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp" />
@@ -430,18 +449,25 @@
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/addProducts" />
 
-                            <EditText
-                                android:id="@+id/edit_text_color_add"
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="@dimen/_4sdp"
-                                android:autofillHints="name"
-                                android:hint="@string/enter_product_color"
-                                android:inputType="text"
-                                android:maxEms="15"
-                                android:paddingStart="@dimen/_4sdp"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_12ssp" />
+                                android:layout_marginHorizontal="16dp"
+                                android:hint="@string/color"
+                                android:textColorHint="@color/primary_color"
+                                app:hintTextColor="@color/black"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/autoCompleteTextViewColor"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:autofillHints="none"
+                                    android:inputType="none"
+                                    android:text="@string/color" />
+                            </com.google.android.material.textfield.TextInputLayout>
                         </LinearLayout>
 
                         <LinearLayout
@@ -465,12 +491,13 @@
                                 android:id="@+id/edit_text_product_size_add"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="@dimen/_4sdp"
+                                android:layout_marginVertical="@dimen/_8sdp"
+                                android:layout_marginHorizontal="@dimen/_4sdp"
                                 android:autofillHints="name"
                                 android:hint="@string/enter_product_size"
-                                android:inputType="numberDecimal"
-                                android:maxEms="15"
-                                android:maxLines="2"
+                                android:maxEms="2"
+                                android:minEms="1"
+                                android:maxLines="1"
                                 android:paddingStart="@dimen/_4sdp"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp" />
@@ -508,6 +535,7 @@
                                 android:textColor="@color/primary_color"
                                 app:cornerRadius="@dimen/_8sdp" />
                         </LinearLayout>
+
                     </LinearLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -519,7 +547,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_8sdp"
                 android:text="@string/images"
-                android:textColor="@color/navy"
+                android:textColor="@color/black"
                 android:textSize="@dimen/_16ssp"
                 android:textStyle="italic"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -586,8 +614,7 @@
                                 android:autofillHints="name"
                                 android:hint="@string/enter_product_size"
                                 android:inputType="textUri"
-                                android:maxEms="15"
-                                android:maxLines="2"
+                                android:maxLines="1"
                                 android:paddingStart="@dimen/_4sdp"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp" />

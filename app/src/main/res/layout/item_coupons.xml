@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingVertical="@dimen/_16sdp"
     android:layout_margin="@dimen/_4sdp"
     app:cardCornerRadius="@dimen/_16sdp"
     app:cardElevation="@dimen/_16sdp">
@@ -31,12 +32,27 @@
             android:layout_marginHorizontal="@dimen/_8sdp"
             android:paddingHorizontal="@dimen/_8sdp"
             android:text="@string/discounts"
+            android:layout_marginVertical="@dimen/_8sdp"
             android:textColor="@color/black"
             android:textSize="@dimen/_14ssp"
             app:layout_constraintEnd_toStartOf="@id/image_view_delete_coupons"
-            app:layout_constraintBottom_toBottomOf="@id/coupons_iv"
             app:layout_constraintStart_toEndOf="@id/coupons_iv"
             app:layout_constraintTop_toTopOf="@id/coupons_iv" />
+
+        <TextView
+            android:id="@+id/text_view_coupons_counts"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:text="@string/discounts"
+            android:layout_marginVertical="@dimen/_8sdp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintTop_toBottomOf="@id/text_view_coupons"
+            app:layout_constraintStart_toStartOf="@id/text_view_coupons"
+            app:layout_constraintEnd_toEndOf="@id/text_view_coupons"
+            app:layout_constraintBottom_toBottomOf="@id/coupons_iv"
+            />
 
         <ImageView
             android:id="@+id/image_view_delete_coupons"

@@ -118,15 +118,7 @@ dependencies {
     // Testing Navigation
     androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
 
-//    // gms
-//    implementation 'com.google.android.gms:play-services-location:21.0.1'
-//    // Google MAPS
-//    implementation 'com.google.maps.android:maps-compose:2.11.0'
-//    implementation 'com.google.android.gms:play-services-maps:18.1.0'
-//    implementation 'com.google.maps.android:maps-compose-utils:2.11.0'
-//    implementation 'com.google.maps.android:maps-compose-widgets:2.10.0'
-//    implementation 'com.google.android.gms:play-services-location:21.0.1'
-//    implementation 'com.google.android.libraries.places:places:3.0.0'
+
 
     //for Kotlin + workManager
     implementation "androidx.work:work-runtime-ktx:2.8.1"
@@ -137,11 +129,9 @@ dependencies {
     def lottieVersion = "3.7.0"
     implementation "com.airbnb.android:lottie:$lottieVersion"
 
-//    // hilt
-//    implementation "com.google.dagger:hilt-android:2.44"
-//    kapt "com.google.dagger:hilt-android-compiler:2.44"
-//    implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
-//    kapt "androidx.hilt:hilt-compiler:1.0.0"
+    // swipe refresh layout
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
 
 
     def core_version = "1.6.0"

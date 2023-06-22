@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -24,6 +25,7 @@ import kotlinx.coroutines.launch
 
 
 class CreateDiscountFragment : DialogFragment() {
+
     private var _binding: FragmentCreateDiscountBinding? = null
     private val binding get() = _binding!!
     private lateinit var createDiscountViewModel: CreateDiscountViewModel

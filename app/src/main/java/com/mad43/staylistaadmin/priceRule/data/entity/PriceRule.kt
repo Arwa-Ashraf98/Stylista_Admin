@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class PriceRule(
-    val admin_graphql_api_id: String? ="",
+    val admin_graphql_api_id: String? = "",
     val allocation_limit: String? = null,
     val allocation_method: String? = "across",
     val created_at: String? = "",
@@ -16,12 +16,13 @@ data class PriceRule(
     val entitled_country_ids: List<Long>? = listOf(),
     val entitled_product_ids: List<Long>? = listOf(),
     val entitled_variant_ids: List<Long>? = listOf(),
-    val id: Long,
+    val id: Long = 0L,
     val once_per_customer: Boolean? = true,
     val prerequisite_collection_ids: List<Long>? = listOf(),
     val prerequisite_customer_ids: List<Long>? = listOf(),
     val prerequisite_product_ids: List<Long>? = listOf(),
-    val prerequisite_quantity_range: Long? = 0L,
+    val prerequisite_subtotal_range: Int? = null,
+    val prerequisite_quantity_range: Int? = null,
     val prerequisite_variant_ids: List<Long>? = listOf(),
     val starts_at: String? = "",
     val target_selection: String? = "all",

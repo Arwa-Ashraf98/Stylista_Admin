@@ -1,4 +1,4 @@
-package com.mad43.staylistaadmin.priceRule.presentation.ui
+package com.mad43.staylistaadmin.priceRule.presentation.priceRule.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,8 +16,9 @@ import com.mad43.staylistaadmin.databinding.FragmentPriceRuleBinding
 import com.mad43.staylistaadmin.priceRule.data.entity.PriceRule
 import com.mad43.staylistaadmin.priceRule.data.remote.PriceRuleRemoteSource
 import com.mad43.staylistaadmin.priceRule.data.repo.PriceRuleRepo
-import com.mad43.staylistaadmin.priceRule.presentation.viewModel.PriceRuleViewModel
-import com.mad43.staylistaadmin.priceRule.presentation.viewModel.PriceRuleViewModelFactory
+//import com.mad43.staylistaadmin.priceRule.presentation.priceRule.PriceRuleFragmentDirections
+import com.mad43.staylistaadmin.priceRule.presentation.priceRule.viewModel.PriceRuleViewModel
+import com.mad43.staylistaadmin.priceRule.presentation.priceRule.viewModel.PriceRuleViewModelFactory
 import com.mad43.staylistaadmin.utils.*
 import kotlinx.coroutines.launch
 
@@ -43,7 +44,15 @@ class PriceRuleFragment : Fragment() {
         observeData()
         adapter = PriceRuleAdapter()
         onClicks()
+        swipeToRefresh()
+    }
 
+    private fun swipeToRefresh() {
+        binding.swipePriceRule?.setOnRefreshListener {
+            priceRuleViewModel.getAllPriceRule()
+            observeData()
+            binding.swipePriceRule?.isRefreshing = false
+        }
     }
 
     private fun initViewModel() {
@@ -70,16 +79,21 @@ class PriceRuleFragment : Fragment() {
             }
         })
 
+
         binding.apply {
             imageViewBack.setOnClickListener {
                 Navigation.findNavController(it).navigateUp()
+            }
+
+            btnCreatePriceRule.setOnClickListener {
+                navigateToNextScreen(R.id.action_priceRuleFragment_to_createPriceRuleFragment)
             }
         }
     }
 
     private fun showDialog(id: Long) {
         Dialogs.showConfirmationDialog(
-            requireActivity().applicationContext,
+            requireContext(),
             requireActivity().getString(R.string.delete_price_rule), {
                 this@PriceRuleFragment.priceRuleViewModel.deletePriceRule(id)
             }, {

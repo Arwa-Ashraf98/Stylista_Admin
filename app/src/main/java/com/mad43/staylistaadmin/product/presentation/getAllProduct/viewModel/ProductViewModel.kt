@@ -26,12 +26,6 @@ class ProductViewModel(
     private val deletedMutableStateFlow = MutableStateFlow(false)
     val deletedDataStateFlow: StateFlow<Boolean> = deletedMutableStateFlow
 
-    init {
-        Log.e("TAG", ": ", )
-        viewModelScope.launch {
-            getAllProduct()
-        }
-    }
 
     suspend fun getAllProduct() {
         val flow = repo.getAllProduct()

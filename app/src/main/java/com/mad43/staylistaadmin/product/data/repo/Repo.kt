@@ -1,13 +1,9 @@
 package com.mad43.staylistaadmin.product.data.repo
 
-import com.mad43.staylistaadmin.product.data.entity.ImageRoot
-import com.mad43.staylistaadmin.product.data.entity.Product
-import com.mad43.staylistaadmin.product.data.entity.ProductModel
-import com.mad43.staylistaadmin.product.data.entity.SecondProductModel
+import com.mad43.staylistaadmin.product.data.entity.*
 import com.mad43.staylistaadmin.product.domain.remote.RemoteSourceInterface
 import com.mad43.staylistaadmin.product.domain.repo.RepoInterface
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import retrofit2.Response
 
@@ -54,5 +50,9 @@ class Repo private constructor(private val remoteSource: RemoteSourceInterface) 
         secondProductModel: SecondProductModel
     ): Flow<Response<SecondProductModel>> {
         return flowOf(remoteSource.updateProduct(id, secondProductModel))
+    }
+
+    override suspend fun updateQuantity(inventoryLevel: InventoryLevel): Flow<Response<InventoryLevelRoot>> {
+        return flowOf(remoteSource.updateQuantity(inventoryLevel))
     }
 }

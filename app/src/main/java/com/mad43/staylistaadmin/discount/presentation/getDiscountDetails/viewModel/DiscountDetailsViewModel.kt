@@ -4,7 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mad43.staylistaadmin.discount.data.entity.DiscountDetailsRoot
 import com.mad43.staylistaadmin.discount.domain.repo.DiscountRepoInterface
+import com.mad43.staylistaadmin.priceRule.data.entity.PriceRuleRoot
 import com.mad43.staylistaadmin.utils.DiscountDetailsAPIState
+import com.mad43.staylistaadmin.utils.PriceRuleCreationAPIState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -20,6 +22,9 @@ class DiscountDetailsViewModel(private val repo: DiscountRepoInterface) : ViewMo
     private val _discountUpdateStateFlow =
         MutableStateFlow<DiscountDetailsAPIState>(DiscountDetailsAPIState.Loading)
     val discountUpdateStateFlow: StateFlow<DiscountDetailsAPIState> = _discountUpdateStateFlow
+    private val _priceRuleStateFlow =
+        MutableStateFlow<PriceRuleCreationAPIState>(PriceRuleCreationAPIState.Loading)
+    val priceRuleStateFlow: StateFlow<PriceRuleCreationAPIState> = _priceRuleStateFlow
 
     fun updateDiscount(
         priceRuleId: Long, discountId: Long, discountDetailsRoot: DiscountDetailsRoot
@@ -32,6 +37,38 @@ class DiscountDetailsViewModel(private val repo: DiscountRepoInterface) : ViewMo
                 if (it.isSuccessful) {
                     val data = it.body()?.discount_code!!
                     _discountUpdateStateFlow.value = DiscountDetailsAPIState.OnSuccess(data)
+                } else {
+                    _errorStateFlow.value = it.message()
+                }
+            }
+        }
+    }
+
+    fun updatePriceRule(id: Long, priceRuleRoot: PriceRuleRoot) {
+        viewModelScope.launch {
+            val flow = repo.updatePriceRuleBy(priceRuleId = id, priceRuleRoot)
+            flow.catch {
+                _priceRuleStateFlow.value = PriceRuleCreationAPIState.OnFail(it)
+            }.collect {
+                if (it.isSuccessful) {
+                    val data = it.body()
+                    _priceRuleStateFlow.value = PriceRuleCreationAPIState.OnSuccess(data!!)
+                } else {
+                    _errorStateFlow.value = it.message()
+                }
+            }
+        }
+    }
+
+    fun getPriceRuleById(id: Long, priceRuleRoot: PriceRuleRoot) {
+        viewModelScope.launch {
+            val flow = repo.getPriceRuleById(priceRuleId = id)
+            flow.catch {
+                _priceRuleStateFlow.value = PriceRuleCreationAPIState.OnFail(it)
+            }.collect {
+                if (it.isSuccessful) {
+                    val data = it.body()
+                    _priceRuleStateFlow.value = PriceRuleCreationAPIState.OnSuccess(data!!)
                 } else {
                     _errorStateFlow.value = it.message()
                 }

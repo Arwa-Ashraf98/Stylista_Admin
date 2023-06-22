@@ -32,6 +32,7 @@ class DiscountAdapter : Adapter<DiscountAdapter.DiscountHolder>() {
         val model = list[position]
         holder.binding.apply {
             textViewCoupons.text = model.code
+            textViewCouponsCounts.setText((model.usage_count as Int).toString())
         }
     }
 

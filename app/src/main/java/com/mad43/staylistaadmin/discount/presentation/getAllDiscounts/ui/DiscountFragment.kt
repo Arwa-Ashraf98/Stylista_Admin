@@ -59,6 +59,15 @@ class DiscountFragment : Fragment() {
         observeData()
         adapter = DiscountAdapter()
         onClicks()
+        swipeToRefresh()
+    }
+
+    private fun swipeToRefresh() {
+        binding.swipeDiscount.setOnRefreshListener {
+            discountViewModel.getAllDiscount(id)
+            observeData()
+            binding.swipeDiscount.isRefreshing = false
+        }
     }
 
     override fun onResume() {
@@ -95,6 +104,7 @@ class DiscountFragment : Fragment() {
     private fun onClicks() {
         binding.apply {
             btnCreateCoupons.setOnClickListener {
+//                navigateToNextScreen(R.id.createDiscountFragment)
                 val dialog = CreateDiscountFragment()
                 val args = Bundle()
                 args.putLong(Const.PRICE_RULE_ID, id)
@@ -134,7 +144,7 @@ class DiscountFragment : Fragment() {
 
     private fun showDialog(priceId: Long, discountId: Long) {
         Dialogs.showConfirmationDialog(
-            requireActivity().applicationContext, getString(R.string.delete_discount), {
+            requireContext(), getString(R.string.delete_discount), {
                 this@DiscountFragment.discountViewModel.deleteDiscount(
                     priceRuleId = priceId,
                     discountId = discountId

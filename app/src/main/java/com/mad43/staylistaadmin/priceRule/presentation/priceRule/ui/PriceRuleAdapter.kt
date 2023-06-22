@@ -1,4 +1,4 @@
-package com.mad43.staylistaadmin.priceRule.presentation.ui
+package com.mad43.staylistaadmin.priceRule.presentation.priceRule.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.mad43.staylistaadmin.databinding.ItemPriceRuleBinding
 import com.mad43.staylistaadmin.priceRule.data.entity.PriceRule
-import com.mad43.staylistaadmin.product.presentation.getAllProduct.ui.ProductAdapter
 
 class PriceRuleAdapter() : Adapter<PriceRuleAdapter.PriceRuleHolder>() {
     private var list: List<PriceRule> = listOf()
