@@ -303,7 +303,7 @@
                                 android:enabled="false"
                                 android:fontFamily="@font/andika"
                                 android:hint="@string/select_size_first"
-                                android:inputType="text"
+                                android:inputType="number"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp" />
 
