@@ -4,11 +4,7 @@ import com.mad43.staylistaadmin.discount.data.entity.DiscountDetailsRoot
 import com.mad43.staylistaadmin.discount.data.entity.DiscountRoot
 import com.mad43.staylistaadmin.priceRule.data.entity.PriceRuleResponse
 import com.mad43.staylistaadmin.priceRule.data.entity.PriceRuleRoot
-import com.mad43.staylistaadmin.product.data.entity.ImageRoot
-import com.mad43.staylistaadmin.product.data.entity.ProductModel
-import com.mad43.staylistaadmin.product.data.entity.SecondProductModel
-import com.mad43.staylistaadmin.product.data.entity.InventoryLevel
-import com.mad43.staylistaadmin.product.data.entity.InventoryLevelRoot
+import com.mad43.staylistaadmin.product.data.entity.*
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -37,11 +33,25 @@ interface RetrofitServices {
         @Body imageRoot: ImageRoot
     ): Response<ImageRoot>
 
+    @DELETE("products/{product_id}/images/{image_id}.json")
+    suspend fun deleteImage(
+        @Path("product_id") productId: Long,
+        @Path("image_id") imageId: Long
+    ): Response<ImageRoot>
+
     @PUT("products/{id}.json")
     suspend fun updateProduct(
         @Path("id") id: Long,
         @Body secondProductModel: SecondProductModel
     ): Response<SecondProductModel>
+
+    @DELETE("products/{product_id}/variants/{variant_id}.json")
+    suspend fun deleteVariant(
+        @Path("product_id") productId: Long,
+        @Path("variant_id") variantId: Long
+    ): Response<Void>
+
+    // ---------------------------------------------------------------------------------------------
 
     // price rule
     @POST("price_rules.json")

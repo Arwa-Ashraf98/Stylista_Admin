@@ -3,11 +3,13 @@ package com.mad43.staylistaadmin.product.presentation.productDetails.viewModel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mad43.staylistaadmin.product.data.entity.ImageRoot
 import com.mad43.staylistaadmin.product.data.entity.InventoryLevel
 import com.mad43.staylistaadmin.product.data.entity.SecondProductModel
 import com.mad43.staylistaadmin.product.domain.repo.RepoInterface
 import com.mad43.staylistaadmin.utils.InventoryLevelAPIState
 import com.mad43.staylistaadmin.utils.ProductAPIState
+import com.mad43.staylistaadmin.utils.ResourceState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -22,6 +24,10 @@ class ProductDetailsViewModel(private val repo: RepoInterface) : ViewModel() {
     val inventoryStateFlow: StateFlow<InventoryLevelAPIState> = _inventoryStateFlow
     private val _errorStateFlow = MutableStateFlow("")
     val errorStateFlow: StateFlow<String> = _errorStateFlow
+    private val _imageStateFlow = MutableStateFlow<ResourceState<ImageRoot>>(ResourceState.Loading)
+    val imageStateFlow : StateFlow<ResourceState<ImageRoot>> = _imageStateFlow
+    private val _variantStateFlow = MutableStateFlow<ResourceState<Boolean>>(ResourceState.Loading)
+    val variantStateFlow : StateFlow<ResourceState<Boolean>> = _variantStateFlow
 
 
     fun getProductById(id: Long) {
@@ -30,7 +36,6 @@ class ProductDetailsViewModel(private val repo: RepoInterface) : ViewModel() {
             flow.catch {
                 dataMutableStateFlow.value = ProductAPIState.OnFail(it)
             }.collect { response ->
-                Log.e("TAG1", response.body().toString())
                 if (response.isSuccessful) {
                     val data = response.body()
                     dataMutableStateFlow.value = ProductAPIState.OnSuccess(data!!)
@@ -42,7 +47,7 @@ class ProductDetailsViewModel(private val repo: RepoInterface) : ViewModel() {
     }
 
     fun updateQuantity(inventoryLevel: InventoryLevel) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val flow = repo.updateQuantity(inventoryLevel)
             flow.catch {
                 _inventoryStateFlow.value = InventoryLevelAPIState.OnFail(it)
@@ -52,6 +57,37 @@ class ProductDetailsViewModel(private val repo: RepoInterface) : ViewModel() {
                     _inventoryStateFlow.value = InventoryLevelAPIState.OnSuccess(data!!)
                 } else {
                     _errorStateFlow.value = it.message()
+                }
+            }
+        }
+    }
+
+    fun deleteImage (productId : Long , imageId : Long){
+        viewModelScope.launch(Dispatchers.IO) {
+            val flow = repo.deleteProductImage(productId, imageId)
+            flow.catch {
+                _imageStateFlow.value = ResourceState.Failure(it)
+            }.collect{
+                if (it.isSuccessful){
+                    val data = it.body()
+                    _imageStateFlow.value = ResourceState.Success(data!!)
+                }else {
+                    Log.e("TAG", "deleteImage: failed ", )
+                }
+            }
+        }
+    }
+
+    fun deleteVariant(productId: Long , variantId : Long){
+        viewModelScope.launch(Dispatchers.IO) {
+            val flow = repo.deleteVariant(productId, variantId)
+            flow.catch {
+                _variantStateFlow.value = ResourceState.Failure(it)
+            }.collect{
+                if (it.isSuccessful){
+                    _variantStateFlow.value = ResourceState.Success(true)
+                }else {
+                    Log.e("TAG", "deleteImage: failed ", )
                 }
             }
         }

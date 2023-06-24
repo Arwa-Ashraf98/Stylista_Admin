@@ -1,17 +1,15 @@
 package com.mad43.staylistaadmin.discount.presentation.createDiscount.ui
 
-import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.Navigation
 import com.mad43.staylistaadmin.R
 import com.mad43.staylistaadmin.databinding.FragmentCreateDiscountBinding
 import com.mad43.staylistaadmin.discount.data.entity.DiscountCode
@@ -24,7 +22,7 @@ import com.mad43.staylistaadmin.utils.*
 import kotlinx.coroutines.launch
 
 
-class CreateDiscountFragment : DialogFragment() {
+class CreateDiscountFragment : Fragment() {
 
     private var _binding: FragmentCreateDiscountBinding? = null
     private val binding get() = _binding!!
@@ -43,8 +41,7 @@ class CreateDiscountFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val mArgs = arguments
-        priceRuleId = mArgs!!.getLong(Const.PRICE_RULE_ID)
+        priceRuleId = CreateDiscountFragmentArgs.fromBundle(requireArguments()).priceRuleId
         initViewModel()
         onClicks()
 
@@ -61,12 +58,12 @@ class CreateDiscountFragment : DialogFragment() {
 
     private fun onClicks() {
         binding.apply {
-            btnCancel.setOnClickListener {
-                dismiss()
-            }
-
             btnAddDiscount.setOnClickListener {
                 getData()
+            }
+
+            imageViewBackDiscounts.setOnClickListener {
+                Navigation.findNavController(it).navigateUp()
             }
         }
     }
@@ -77,7 +74,7 @@ class CreateDiscountFragment : DialogFragment() {
         observeValidateData(discountCode)
     }
 
-    private fun observeValidateData(code : String) {
+    private fun observeValidateData(code: String) {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 createDiscountViewModel.validationStateFlow.collect {
@@ -92,7 +89,7 @@ class CreateDiscountFragment : DialogFragment() {
                         }
 
                         is ValidateState.OnValidateError -> {
-                            if (it.place.equals(Const.DISCOUNT_CODE , true)){
+                            if (it.place.equals(Const.DISCOUNT_CODE, true)) {
                                 binding.progressBarDiscountsCreation.hideProgress()
                                 showToast(requireActivity().getString(it.message))
                             }
@@ -103,31 +100,30 @@ class CreateDiscountFragment : DialogFragment() {
         }
     }
 
-    private fun createDiscount(code : String){
+    private fun createDiscount(code: String) {
         val discountCode = DiscountCode(code = code)
         val discountDetailsRoot = DiscountDetailsRoot(discountCode)
-        createDiscountViewModel.createDiscount(priceRuleId , discountDetailsRoot)
+        createDiscountViewModel.createDiscount(priceRuleId, discountDetailsRoot)
     }
 
-    private fun observeDiscountCreation(){
+    private fun observeDiscountCreation() {
         lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
-                createDiscountViewModel.discountStateFlow.collect{
-                    when(it){
-                        is DiscountDetailsAPIState.Loading ->{
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                createDiscountViewModel.discountStateFlow.collect {
+                    when (it) {
+                        is DiscountDetailsAPIState.Loading -> {
                             binding.progressBarDiscountsCreation.showProgress()
                         }
 
-                        is DiscountDetailsAPIState.OnSuccess ->{
+                        is DiscountDetailsAPIState.OnSuccess -> {
                             binding.progressBarDiscountsCreation.hideProgress()
                             val data = it.discount
-                            if (data.code!=null){
+                            if (data.code != null) {
                                 showToast(requireActivity().getString(R.string.success))
-                                dismiss()
                             }
                         }
 
-                        is DiscountDetailsAPIState.OnFail ->{
+                        is DiscountDetailsAPIState.OnFail -> {
                             binding.progressBarDiscountsCreation.hideProgress()
                             showToast(it.errorMessage.localizedMessage)
                         }

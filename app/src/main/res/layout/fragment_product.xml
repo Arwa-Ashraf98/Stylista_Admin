@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/swipeHome"
-    android:background="@color/text_color"
+    android:background="@color/background_white"
     tools:context=".product.presentation.getAllProduct.ui.ProductFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,6 +30,7 @@
             android:layout_marginStart="@dimen/_8sdp"
             android:text="@string/products"
             android:textColor="@color/black"
+            android:fontFamily="@font/andika"
             android:textSize="@dimen/_20sdp"
             app:layout_constraintBottom_toBottomOf="@id/image_view_back"
             app:layout_constraintStart_toEndOf="@id/image_view_back"
@@ -48,6 +49,7 @@
             android:drawableStart="@drawable/baseline_search_24"
             android:drawablePadding="@dimen/_4sdp"
             android:drawableTint="@color/light_burgendy"
+            android:fontFamily="@font/andika"
             android:hint="@string/search_product_by_name"
             android:inputType="text"
             android:maxEms="20"

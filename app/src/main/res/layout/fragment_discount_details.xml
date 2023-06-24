@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
     tools:context=".discount.presentation.getDiscountDetails.ui.DiscountDetailsFragment">
 
     <ImageView
@@ -25,25 +24,36 @@
         android:layout_marginStart="@dimen/_8sdp"
         android:text="@string/discount_details"
         android:textColor="@color/black"
+        android:fontFamily="@font/andika"
         android:textSize="@dimen/_20sdp"
         app:layout_constraintBottom_toBottomOf="@id/image_view_back"
         app:layout_constraintStart_toEndOf="@id/image_view_back"
         app:layout_constraintTop_toTopOf="@id/image_view_back" />
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animationView"
+        android:layout_width="@dimen/_250sdp"
+        android:layout_height="@dimen/_150sdp"
+        android:layout_margin="@dimen/_8sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/coupons"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/discunt1"
+        />
+
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_8sdp"
+        android:layout_marginVertical="@dimen/_8sdp"
         app:cardCornerRadius="@dimen/_24sdp"
         app:cardElevation="@dimen/_16ssp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.8"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.9"
-        app:strokeColor="@color/primary_color"
-        app:strokeWidth="@dimen/_1sdp">
+        app:layout_constraintTop_toBottomOf="@id/animationView">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -66,7 +76,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/code"
-                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/andika"
+                        android:textColor="@color/blue"
                         android:textSize="@dimen/_16ssp" />
 
                     <EditText
@@ -93,7 +105,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/value"
-                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/andika"
+                        android:textColor="@color/blue"
                         android:textSize="@dimen/_16ssp" />
 
                     <EditText
@@ -102,8 +116,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/_8sdp"
                         android:enabled="false"
-                        android:inputType="numberSigned"
-                        android:textColor="@color/black"
+                        android:inputType="numberSigned|numberDecimal"
+                        android:textColor="@color/red"
                         android:textSize="@dimen/_14ssp"
                         app:layout_constraintTop_toTopOf="parent" />
                 </LinearLayout>
@@ -120,7 +134,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/limits"
-                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/andika"
+                        android:textColor="@color/blue"
                         android:textSize="@dimen/_16ssp" />
 
                     <EditText
@@ -147,7 +163,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/date"
-                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/andika"
+                        android:textColor="@color/blue"
                         android:textSize="@dimen/_16ssp" />
 
                     <EditText
@@ -157,25 +175,12 @@
                         android:layout_marginHorizontal="@dimen/_8sdp"
                         android:enabled="false"
                         android:inputType="date"
-                        android:textColor="@color/black"
+                        android:textColor="@color/green_success"
                         android:textSize="@dimen/_14ssp"
                         app:layout_constraintTop_toTopOf="parent" />
                 </LinearLayout>
 
             </LinearLayout>
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btn_edit_discount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_8sdp"
-                android:backgroundTint="@color/primary_color"
-                android:contentDescription="@string/image"
-                android:src="@drawable/baseline_edit_24"
-                app:fabSize="normal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:tint="@color/white" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -191,6 +196,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_edit_discount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_16sdp"
+        android:backgroundTint="@color/primary_color"
+        android:contentDescription="@string/image"
+        android:src="@drawable/baseline_edit_24"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/white" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

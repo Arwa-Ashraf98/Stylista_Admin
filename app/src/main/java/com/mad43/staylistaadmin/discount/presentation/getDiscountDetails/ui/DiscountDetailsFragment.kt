@@ -18,10 +18,8 @@ import com.mad43.staylistaadmin.discount.data.remoteSource.DiscountRemoteSource
 import com.mad43.staylistaadmin.discount.data.repo.DiscountRepo
 import com.mad43.staylistaadmin.discount.presentation.getDiscountDetails.viewModel.DiscountDetailsViewModel
 import com.mad43.staylistaadmin.discount.presentation.getDiscountDetails.viewModel.DiscountDetailsViewModelFactory
-import com.mad43.staylistaadmin.priceRule.data.remote.PriceRuleRemoteSource
-import com.mad43.staylistaadmin.priceRule.data.repo.PriceRuleRepo
-import com.mad43.staylistaadmin.priceRule.presentation.priceRule.viewModel.PriceRuleViewModel
-import com.mad43.staylistaadmin.priceRule.presentation.priceRule.viewModel.PriceRuleViewModelFactory
+import com.mad43.staylistaadmin.priceRule.data.entity.PriceRule
+import com.mad43.staylistaadmin.priceRule.data.entity.PriceRuleRoot
 import com.mad43.staylistaadmin.utils.*
 import kotlinx.coroutines.launch
 
@@ -31,13 +29,12 @@ class DiscountDetailsFragment : Fragment() {
     private val binding get() = _binding!!
     private var priceRuleId: Long = 0L
     private var discountId: Long = 0L
-    private var value: String = ""
-    private var limits: Int = 0
     private lateinit var discountDetailsVM: DiscountDetailsViewModel
     private lateinit var viewModelFactory: DiscountDetailsViewModelFactory
     private var flag = false
     private lateinit var discountCode: DiscountCode
     private lateinit var discountDetailsRoot: DiscountDetailsRoot
+    private lateinit var priceRule: PriceRule
 
 
     override fun onCreateView(
@@ -53,8 +50,7 @@ class DiscountDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         priceRuleId = DiscountDetailsFragmentArgs.fromBundle(requireArguments()).priceRuleId
         discountId = DiscountDetailsFragmentArgs.fromBundle(requireArguments()).discountId
-        limits = DiscountDetailsFragmentArgs.fromBundle(requireArguments()).limits
-        value = DiscountDetailsFragmentArgs.fromBundle(requireArguments()).value
+        priceRule = DiscountDetailsFragmentArgs.fromBundle(requireArguments()).priceRule
         initViewModel()
 
         discountDetailsVM.getDiscountById(priceRuleId = priceRuleId, discountId = discountId)
@@ -100,9 +96,19 @@ class DiscountDetailsFragment : Fragment() {
     private fun setData(discount: DiscountCode) {
         binding.apply {
             editTextCouponCode.setText(discount.code)
-            editTextDate.setText(discount.created_at)
-            editTextLimits.setText(limits.toString())
-            editTextValue.setText(value)
+            editTextDate.setText(
+                Helpers.transformDate(
+                    discount.created_at,
+                    Helpers.wholeDatePattern
+                )
+            )
+            val limit = if (priceRule.usage_limit.toString().equals("null", true)) {
+                0
+            } else {
+                priceRule.usage_limit
+            }
+            editTextLimits.setText(limit.toString())
+            editTextValue.setText(priceRule.value)
         }
     }
 
@@ -111,12 +117,14 @@ class DiscountDetailsFragment : Fragment() {
             btnEditDiscount.setOnClickListener {
                 flag = !flag
                 if (flag) {
-                    btnEditDiscount.setImageResource(R.drawable.baseline_save_alt_24)
+                    btnEditDiscount.setImageResource(R.drawable.baseline_done_all_24)
                     editTextCouponCode.enableEditText()
+                    editTextLimits.enableEditText()
+                    editTextValue.enableEditText()
                 } else {
                     btnEditDiscount.setImageResource(R.drawable.baseline_edit_24)
                     getData()
-                    observeUpdate()
+                    observeUpdatePriceRule()
                 }
             }
 
@@ -128,11 +136,15 @@ class DiscountDetailsFragment : Fragment() {
 
     private fun getData() {
         val code = binding.editTextCouponCode.text.toString().trim()
+        val value = binding.editTextValue.text.toString().trim()
+        val limit = binding.editTextLimits.text.toString().trim()
         discountCode = DiscountCode(code = code)
-        updateCode(discountCode)
+        priceRule.usage_limit = limit.toInt()
+        priceRule.value = value
+        updatePriceRule()
     }
 
-    private fun updateCode(discount: DiscountCode) {
+    private fun updateCode() {
         discountDetailsRoot = DiscountDetailsRoot(discount_code = discountCode)
         discountDetailsVM.updateDiscount(
             priceRuleId = priceRuleId,
@@ -141,9 +153,39 @@ class DiscountDetailsFragment : Fragment() {
         )
     }
 
+    private fun updatePriceRule() {
+        val priceRuleRoot = PriceRuleRoot(priceRule)
+        discountDetailsVM.updatePriceRule(priceRuleId, priceRuleRoot)
+    }
+
+    private fun observeUpdatePriceRule() {
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                discountDetailsVM.priceRuleStateFlow.collect {
+                    when (it) {
+                        is PriceRuleCreationAPIState.Loading -> {
+                            binding.progressBarCouponsDetails.showProgress()
+                        }
+
+                        is PriceRuleCreationAPIState.OnSuccess -> {
+                            binding.progressBarCouponsDetails.hideProgress()
+                            updateCode()
+                            observeUpdate()
+                        }
+
+                        is PriceRuleCreationAPIState.OnFail -> {
+                            binding.progressBarCouponsDetails.hideProgress()
+                            showToast(it.errorMessage.localizedMessage)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     private fun observeUpdate() {
         lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 discountDetailsVM.discountUpdateStateFlow.collect {
                     when (it) {
                         is DiscountDetailsAPIState.Loading -> {
@@ -153,6 +195,7 @@ class DiscountDetailsFragment : Fragment() {
                         is DiscountDetailsAPIState.OnSuccess -> {
                             binding.progressBarCouponsDetails.hideProgress()
                             binding.editTextCouponCode.unEnableEditText()
+                            Navigation.findNavController(requireView()).navigateUp()
                             showToast(requireActivity().getString(R.string.success))
                         }
 

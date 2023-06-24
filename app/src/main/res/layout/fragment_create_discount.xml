@@ -1,108 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="@dimen/_4sdp"
-    app:cardCornerRadius="@dimen/_16sdp"
-    app:cardElevation="@dimen/_16sdp"
+    android:layout_height="match_parent"
     tools:context=".discount.presentation.createDiscount.ui.CreateDiscountFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <ProgressBar
+        android:id="@+id/progressBar_discounts_creation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/_16sdp"
+        android:indeterminateTint="@color/primary_color"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/background"
-        android:paddingVertical="@dimen/_16sdp">
-
-        <ProgressBar
-            android:id="@+id/progressBar_discounts_creation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:elevation="@dimen/_16sdp"
-            android:indeterminateTint="@color/primary_color"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="@dimen/_100sdp"
+        android:layout_gravity="bottom"
+        android:contentDescription="@string/image"
+        android:scaleType="fitXY"
+        android:src="@drawable/wave2"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 
-        <TextView
-            android:id="@+id/addDiscount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/_8sdp"
-            android:text="@string/create_discount"
-            android:textColor="@color/primary_color"
-            android:textSize="@dimen/_24ssp"
-            android:textStyle="italic"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animationView"
+        android:layout_width="@dimen/_250sdp"
+        android:layout_height="@dimen/_150sdp"
+        android:layout_margin="@dimen/_8sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/CreateDiscounts"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+            app:lottie_rawRes="@raw/discount"
+    />
 
-        <TextView
-            android:id="@+id/code"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_8sdp"
-            android:paddingVertical="@dimen/_8sdp"
-            android:text="@string/discount_code"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_16ssp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/addDiscount" />
+    <ImageView
+        android:id="@+id/image_view_back_discounts"
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="@dimen/_25sdp"
+        android:layout_margin="@dimen/_8sdp"
+        android:contentDescription="@string/image"
+        android:src="@drawable/baseline_arrow_back_ios_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/black" />
 
-
-        <EditText
-            android:id="@+id/edit_text_code_discount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_8sdp"
-            android:autofillHints="name"
-            android:background="@drawable/rounded_shape"
-            android:hint="@string/enter_discount_code"
-            android:inputType="text"
-            android:maxLines="1"
-            android:paddingHorizontal="@dimen/_4sdp"
-            android:paddingVertical="@dimen/_10sdp"
-            android:textSize="@dimen/_14ssp"
-            app:layout_constraintTop_toBottomOf="@id/code" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_cancel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:backgroundTint="@color/red"
-            android:paddingVertical="@dimen/_4sdp"
-            android:text="@string/cancel"
-            android:textSize="@dimen/_14ssp"
-            app:cornerRadius="@dimen/_8sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btn_add_discount"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_text_code_discount"
-            app:layout_constraintWidth_percent="0.4" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_add_discount"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/green_success"
-            android:paddingVertical="@dimen/_4sdp"
-            android:text="@string/create"
-            android:textSize="@dimen/_14ssp"
-            app:cornerRadius="@dimen/_8sdp"
-            app:layout_constraintBottom_toBottomOf="@id/btn_cancel"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/btn_cancel"
-            app:layout_constraintTop_toTopOf="@id/btn_cancel"
-            app:layout_constraintWidth_percent="0.4" />
+    <TextView
+        android:id="@+id/CreateDiscounts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:text="@string/create_discount"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_16sdp"
+        android:fontFamily="@font/andika"
+        app:layout_constraintBottom_toBottomOf="@id/image_view_back_discounts"
+        app:layout_constraintStart_toEndOf="@id/image_view_back_discounts"
+        app:layout_constraintTop_toTopOf="@id/image_view_back_discounts" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animationView1"
+        android:layout_width="@dimen/_35sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_margin="@dimen/_8sdp"
+        app:layout_constraintBottom_toBottomOf="@id/code"
+        app:layout_constraintEnd_toStartOf="@id/code"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/code"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/discount_code"
+
+        />
+
+    <TextView
+        android:id="@+id/code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_8sdp"
+        android:paddingVertical="@dimen/_8sdp"
+        android:text="@string/discount_code"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_16ssp"
+        android:fontFamily="@font/andika"
+        app:layout_constraintStart_toEndOf="@id/animationView1"
+        app:layout_constraintTop_toBottomOf="@id/animationView" />
+
+    <ImageView
+        android:id="@+id/discountCodeIv"
+        android:layout_width="@dimen/_35sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_margin="@dimen/_4sdp"
+        android:contentDescription="@string/image"
+        android:src="@drawable/discount_code"
+        app:layout_constraintBottom_toBottomOf="@id/edit_text_code_discount"
+        app:layout_constraintEnd_toStartOf="@id/edit_text_code_discount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/edit_text_code_discount" />
+
+
+    <EditText
+        android:id="@+id/edit_text_code_discount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_8sdp"
+        android:layout_marginVertical="@dimen/_8sdp"
+        android:autofillHints="name"
+        android:background="@drawable/rounded_shape"
+        android:hint="@string/enter_discount_code"
+        android:inputType="text"
+        android:maxLines="1"
+        android:paddingHorizontal="@dimen/_4sdp"
+        android:paddingVertical="@dimen/_10sdp"
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/animationView1"
+        app:layout_constraintTop_toBottomOf="@id/code" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_add_discount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/_16sdp"
+        android:backgroundTint="@color/green_success"
+        android:paddingVertical="@dimen/_4sdp"
+        android:text="@string/create"
+        android:textSize="@dimen/_14ssp"
+        app:cornerRadius="@dimen/_8sdp"
+        android:fontFamily="@font/andika"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_code_discount"
+        app:layout_constraintWidth_percent="0.4" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,7 +17,6 @@ import com.mad43.staylistaadmin.databinding.FragmentDiscountBinding
 import com.mad43.staylistaadmin.discount.data.entity.DiscountCode
 import com.mad43.staylistaadmin.discount.data.remoteSource.DiscountRemoteSource
 import com.mad43.staylistaadmin.discount.data.repo.DiscountRepo
-import com.mad43.staylistaadmin.discount.presentation.createDiscount.ui.CreateDiscountFragment
 import com.mad43.staylistaadmin.discount.presentation.getAllDiscounts.viewModel.DiscountViewModel
 import com.mad43.staylistaadmin.discount.presentation.getAllDiscounts.viewModel.DiscountViewModelFactory
 import com.mad43.staylistaadmin.priceRule.data.entity.PriceRule
@@ -36,8 +35,9 @@ class DiscountFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.e("TAG", "onCreate: ", )
+        Log.e("TAG", "onCreate: ")
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,10 +48,8 @@ class DiscountFragment : Fragment() {
     }
 
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.e("TAG", "onViewCreated: ", )
         id = DiscountFragmentArgs.fromBundle(requireArguments()).id
         priceRule = DiscountFragmentArgs.fromBundle(requireArguments()).priceRule
         initViewModel()
@@ -72,22 +70,22 @@ class DiscountFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        Log.e("TAG", "onResume: ", )
+        Log.e("TAG", "onResume: ")
     }
 
     override fun onStart() {
         super.onStart()
-        Log.e("TAG", "onStart: ", )
+        Log.e("TAG", "onStart: ")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.e("TAG", "onDestroy: ", )
+        Log.e("TAG", "onDestroy: ")
     }
 
     override fun onStop() {
         super.onStop()
-        Log.e("TAG", "onStop: ", )
+        Log.e("TAG", "onStop: ")
     }
 
 
@@ -104,12 +102,11 @@ class DiscountFragment : Fragment() {
     private fun onClicks() {
         binding.apply {
             btnCreateCoupons.setOnClickListener {
-//                navigateToNextScreen(R.id.createDiscountFragment)
-                val dialog = CreateDiscountFragment()
-                val args = Bundle()
-                args.putLong(Const.PRICE_RULE_ID, id)
-                dialog.arguments = args
-                dialog.show(requireActivity().supportFragmentManager , "dialog")
+                val action =
+                    DiscountFragmentDirections.actionDiscountFragmentToCreateDiscountFragment(
+                        priceRule.id
+                    )
+                findNavController().navigate(action)
             }
 
             imageViewBack.setOnClickListener {
@@ -118,17 +115,11 @@ class DiscountFragment : Fragment() {
 
             adapter.setOnDiscountClickListener(object : DiscountAdapter.DiscountClickListener {
                 override fun onDiscountClickListener(priceRuleId: Long, discountId: Long) {
-                    val limits = if (priceRule.usage_limit == null) {
-                        0
-                    } else {
-                        priceRule.usage_limit
-                    }
                     val action =
                         DiscountFragmentDirections.actionDiscountFragmentToDiscountDetailsFragment(
-                            discountId,
+                            priceRule,
                             priceRuleId,
-                            priceRule.value as String,
-                            limits as Int
+                            discountId
                         )
                     findNavController().navigate(action)
                 }
@@ -136,8 +127,6 @@ class DiscountFragment : Fragment() {
                 override fun onDeleteClickListener(discountId: Long, priceRuleId: Long) {
                     showDialog(priceId = priceRuleId, discountId)
                 }
-
-
             })
         }
     }
@@ -157,7 +146,7 @@ class DiscountFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        Log.e("TAG", "onPause: ", )
+        Log.e("TAG", "onPause: ")
     }
 
     private fun observeData() {
@@ -194,7 +183,7 @@ class DiscountFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.e("TAG", "onDestroyView: ", )
+        Log.e("TAG", "onDestroyView: ")
         _binding = null
     }
 

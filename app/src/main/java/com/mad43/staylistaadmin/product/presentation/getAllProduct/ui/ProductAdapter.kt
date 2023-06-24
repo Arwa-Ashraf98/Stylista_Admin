@@ -34,15 +34,20 @@ class ProductAdapter : Adapter<ProductAdapter.Holder>() {
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val productModel = list[position]
         holder.binding.apply {
-            val date = "updated at : ${Helpers.transformDate(productModel.updated_at)}"
+            val date = "updated at : ${Helpers.transformDate(productModel.updated_at , Helpers.wholeDatePattern)}"
             textViewDate.text = date
             val price = "Price: ${productModel.variants?.get(0)?.price as String} EGP"
             textViewPrice.text = price
             val vendor = "Vendor : ${productModel.vendor}"
             textViewProductDepartment.text = vendor
-//            val titleList = productModel.title?.split("|")
-//            val title = "Name : ${titleList?.get(1)}"
-            textViewProductName.text = productModel.title
+            val titleList = productModel.title?.split("|")
+            var title = ""
+            title = if (titleList?.size == 1) {
+                titleList[0]
+            }else {
+                titleList?.get(1)!!
+            }
+            textViewProductName.text = title
             var totalQuantity = 0
             for(q in productModel.variants){
                 totalQuantity += (q.inventory_quantity) as Int

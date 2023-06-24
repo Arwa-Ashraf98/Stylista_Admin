@@ -2,9 +2,9 @@
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipDetails"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/swipDetails"
     tools:context=".product.presentation.productDetails.ui.ProductDetailsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +35,7 @@
                     android:id="@+id/btn_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_25sdp"
+                    android:layout_margin="@dimen/_16sdp"
                     android:backgroundTint="@color/primary_color"
                     android:contentDescription="@string/image"
                     android:src="@drawable/baseline_edit_24"
@@ -51,7 +51,7 @@
                     android:layout_marginBottom="@dimen/_8sdp"
                     android:backgroundTint="@color/primary_color"
                     android:contentDescription="@string/image"
-                    android:src="@drawable/baseline_save_alt_24"
+                    android:src="@drawable/baseline_done_all_24"
                     android:visibility="gone"
                     app:fabSize="normal"
                     app:layout_constraintBottom_toTopOf="@id/btn_edit"
@@ -81,7 +81,7 @@
                     app:layout_constraintStart_toEndOf="@id/image_view_back"
                     app:layout_constraintTop_toTopOf="@id/image_view_back" />
 
-                <ImageView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/image_view_detailed_product"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_150sdp"
@@ -89,14 +89,16 @@
                     android:contentDescription="@string/image"
                     android:scaleType="centerInside"
                     android:src="@drawable/loading"
-                    app:layout_constraintTop_toBottomOf="@id/products" />
+                    app:layout_constraintTop_toBottomOf="@id/products"
+                    app:shapeAppearance="@style/CornerCut" />
 
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="@dimen/_8sdp"
-                    android:layout_marginVertical="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:layout_marginBottom="@dimen/_40sdp"
                     app:cardCornerRadius="@dimen/_8sdp"
                     app:cardElevation="@dimen/_4sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -121,6 +123,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
+                                android:fontFamily="@font/andika"
                                 android:padding="@dimen/_2sdp"
                                 android:text="@string/product_name"
                                 android:textColor="@color/primary_color"
@@ -135,10 +138,11 @@
                                 android:layout_marginVertical="@dimen/_4sdp"
                                 android:autofillHints="name"
                                 android:enabled="false"
+                                android:fontFamily="@font/andika"
                                 android:hint="@string/white_space"
                                 android:inputType="textPersonName"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_8ssp" />
+                                android:textSize="@dimen/_12ssp" />
 
                         </LinearLayout>
 
@@ -153,6 +157,7 @@
                                 android:layout_width="@dimen/_50sdp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
+                                android:fontFamily="@font/andika"
                                 android:padding="@dimen/_2sdp"
                                 android:text="@string/vendor"
                                 android:textColor="@color/primary_color"
@@ -167,6 +172,7 @@
                                 android:layout_marginVertical="@dimen/_4sdp"
                                 android:autofillHints="name"
                                 android:enabled="false"
+                                android:fontFamily="@font/andika"
                                 android:hint="@string/white_space"
                                 android:inputType="textPersonName"
                                 android:textColor="@color/black"
@@ -177,20 +183,23 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
                             <TextView
-                                android:id="@+id/price"
-                                android:layout_width="@dimen/_50sdp"
+                                android:id="@+id/description"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
+                                android:layout_marginVertical="@dimen/_4sdp"
+                                android:fontFamily="@font/andika"
                                 android:padding="@dimen/_2sdp"
-                                android:text="@string/price"
+                                android:text="@string/description"
                                 android:textColor="@color/primary_color"
                                 android:textSize="@dimen/_12ssp" />
 
                             <EditText
-                                android:id="@+id/edit_text_detailed_price"
+                                android:id="@+id/edit_text_detailed_description"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
@@ -198,8 +207,10 @@
                                 android:layout_marginVertical="@dimen/_4sdp"
                                 android:autofillHints="name"
                                 android:enabled="false"
+                                android:fontFamily="@font/andika"
                                 android:hint="@string/white_space"
                                 android:inputType="text"
+                                android:maxEms="15"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp" />
 
@@ -215,6 +226,7 @@
                                 android:layout_width="@dimen/_50sdp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
+                                android:fontFamily="@font/andika"
                                 android:padding="@dimen/_2sdp"
                                 android:text="@string/type"
                                 android:textColor="@color/primary_color"
@@ -229,6 +241,7 @@
                                 android:layout_marginVertical="@dimen/_4sdp"
                                 android:autofillHints="name"
                                 android:enabled="false"
+                                android:fontFamily="@font/andika"
                                 android:hint="@string/white_space"
                                 android:inputType="text"
                                 android:textColor="@color/black"
@@ -246,8 +259,9 @@
                                 android:layout_width="@dimen/_50sdp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
+                                android:fontFamily="@font/andika"
                                 android:padding="@dimen/_2sdp"
-                                android:text="@string/size"
+                                android:text="@string/variant"
                                 android:textColor="@color/primary_color"
                                 android:textSize="@dimen/_12ssp" />
 
@@ -272,6 +286,7 @@
                                 android:layout_width="@dimen/_60sdp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
+                                android:fontFamily="@font/andika"
                                 android:padding="@dimen/_2sdp"
                                 android:text="@string/quantity"
                                 android:textColor="@color/primary_color"
@@ -279,13 +294,14 @@
 
                             <EditText
                                 android:id="@+id/edit_text_detailed_quantity"
-                                android:layout_width="@dimen/_180sdp"
+                                android:layout_width="@dimen/_170sdp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginHorizontal="@dimen/_4sdp"
                                 android:layout_marginVertical="@dimen/_4sdp"
                                 android:autofillHints="name"
                                 android:enabled="false"
+                                android:fontFamily="@font/andika"
                                 android:hint="@string/select_size_first"
                                 android:inputType="text"
                                 android:textColor="@color/black"
@@ -295,54 +311,25 @@
                                 android:id="@+id/image_view_edit"
                                 android:layout_width="@dimen/_20sdp"
                                 android:layout_height="@dimen/_20sdp"
-                                android:src="@drawable/baseline_edit_24"
                                 android:layout_gravity="center_vertical"
-                                android:contentDescription="@string/image"
                                 android:layout_marginHorizontal="@dimen/_8sdp"
-                                />
+                                android:contentDescription="@string/image"
+                                android:src="@drawable/baseline_edit_24" />
                         </LinearLayout>
+
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/color"
-                                android:layout_width="@dimen/_50sdp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:padding="@dimen/_2sdp"
-                                android:text="@string/color"
-                                android:textColor="@color/primary_color"
-                                android:textSize="@dimen/_12ssp" />
-
-                            <EditText
-                                android:id="@+id/edit_text_detailed_color"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginHorizontal="@dimen/_4sdp"
-                                android:layout_marginVertical="@dimen/_4sdp"
-                                android:autofillHints="name"
-                                android:ems="15"
-                                android:enabled="false"
-                                android:hint="@string/white_space"
-                                android:inputType="text"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_12ssp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:orientation="vertical">
 
                             <TextView
                                 android:id="@+id/images"
-                                android:layout_width="@dimen/_52sdp"
+                                android:layout_width="@dimen/_55sdp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
+                                android:layout_marginVertical="@dimen/_4sdp"
+                                android:fontFamily="@font/andika"
                                 android:padding="@dimen/_2sdp"
                                 android:text="@string/images"
                                 android:textColor="@color/primary_color"
@@ -351,7 +338,7 @@
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/recycler_image"
                                 android:layout_width="match_parent"
-                                android:layout_height="@dimen/_100sdp"
+                                android:layout_height="@dimen/_130sdp"
                                 android:layout_marginHorizontal="@dimen/_4sdp"
                                 android:orientation="horizontal"
                                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

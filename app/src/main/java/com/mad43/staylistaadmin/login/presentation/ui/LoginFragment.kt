@@ -80,7 +80,7 @@ class LoginFragment : Fragment() {
                         is ValidateState.OnValidateSuccess -> {
                             binding.progressBarLogin.hideProgress()
                             this@LoginFragment.loginViewModel.saveShopData(shopName, password)
-                            navigateToNextScreen(R.id.action_loginFragment_to_homeFragment2)
+                            navigateToNextScreen(R.id.homeFragment2)
                         }
 
                         is ValidateState.OnValidateError -> {

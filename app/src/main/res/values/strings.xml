@@ -30,24 +30,24 @@
     <string name="select_size_first">select size first to get quantity</string>
     <string name="add_products">Add Products</string>
     <string name="poster">Poster :</string>
-    <string name="enter_the_poster_url">Enter the Poster URL</string>
+    <string name="enter_the_poster_url">Poster URL</string>
     <string name="product">Product</string>
-    <string name="enter_product_name">Enter Product Name</string>
+    <string name="enter_product_name">Product Name</string>
     <string name="product_type">Product Type :</string>
-    <string name="enter_product_type">Enter Product Type</string>
+    <string name="enter_product_type">Product Type</string>
     <string name="enter_vendor_name">Enter Vendor Name</string>
     <string name="description">Description :</string>
-    <string name="enter_product_description">Enter Product Description</string>
+    <string name="enter_product_description">Product Description</string>
     <string name="product_tags">Product Tags :</string>
-    <string name="enter_product_tags">Enter Product Tags</string>
+    <string name="enter_product_tags">Product Tags</string>
     <string name="variant">Variant</string>
-    <string name="enter_product_price">Enter Product Price</string>
-    <string name="enter_Product_Quantity">Enter Product Quantity</string>
+    <string name="enter_product_price">Product Price</string>
+    <string name="enter_Product_Quantity">Product Quantity</string>
     <string name="next">Next</string>
     <string name="done">Done</string>
     <string name="options">Options</string>
-    <string name="enter_product_color">Enter Product Color</string>
-    <string name="enter_product_size">Enter Product Size</string>
+    <string name="enter_product_color">Product Color</string>
+    <string name="enter_product_size">Product Size</string>
     <string name="price_must_not_be_empty">price must not be empty</string>
     <string name="quantity_must_not_be_empty">quantity must not be empty</string>
     <string name="size_must_not_be_empty">size must not be empty</string>
@@ -122,6 +122,20 @@
         <item>women</item>
         <item>sale</item>
     </string-array>
+    <string-array name="vendorType">
+        <item>NIKE</item>
+        <item>ADIDAS</item>
+        <item>PUMA</item>
+        <item>SUPRA</item>
+        <item>VANS</item>
+        <item>TIMBERLAND</item>
+        <item>PALLADUIM</item>
+        <item>FLEX FIT</item>
+        <item>HERSCHEL</item>
+        <item>CONVERSE</item>
+        <item>DR MARTENS</item>
+        <item>ASICS TIGER</item>
+    </string-array>
     <string name="title_must_not_be_empty">title must not be empty</string>
     <string name="value_must_not_be_empty">value must not be empty</string>
     <string name="value_type_must_not_be_empty">value type must not be empty</string>
@@ -131,4 +145,7 @@
     <string name="limit">Limit :</string>
     <string name="quantity_same">Quantity is The Same Nothing Changed</string>
     <string name="category">Category</string>
+    <string name="starts_at">From</string>
+    <string name="ends_at">To</string>
+    <string name="stylista">Stylista</string>
 </resources>

@@ -19,6 +19,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_120sdp"
+            android:layout_margin="@dimen/_4sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_view_back"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/discount"
+            app:lottie_loop="true" />
+
         <ImageView
             android:id="@+id/image_view_back"
             android:layout_width="@dimen/_25sdp"
@@ -38,6 +50,7 @@
             android:text="@string/price_rules"
             android:textColor="@color/black"
             android:textSize="@dimen/_20sdp"
+            android:fontFamily="@font/andika"
             app:layout_constraintBottom_toBottomOf="@id/image_view_back"
             app:layout_constraintStart_toEndOf="@id/image_view_back"
             app:layout_constraintTop_toTopOf="@id/image_view_back" />
@@ -46,29 +59,39 @@
             android:id="@+id/layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/_16sdp"
+            android:layout_marginVertical="@dimen/_4sdp"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/pricerule_craetion">
+            app:layout_constraintTop_toBottomOf="@id/animationView">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
+                <ImageView
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/_4sdp"
+                    android:contentDescription="@string/image"
+                    android:src="@drawable/title" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_8sdp"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/_2sdp"
                     android:padding="@dimen/_4sdp"
+                    android:fontFamily="@font/andika"
                     android:text="@string/title"
-                    android:textColor="@color/primary_color"
+                    android:textColor="@color/blue"
                     android:textSize="@dimen/_18ssp" />
 
                 <EditText
                     android:id="@+id/editText_price_rule_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_8sdp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:hint="@string/enter_price_rule_title"
                     android:inputType="text"
                     android:maxLines="1"
@@ -82,20 +105,30 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
+                <ImageView
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/_4sdp"
+                    android:contentDescription="@string/image"
+                    android:src="@drawable/percentage" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_8sdp"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/_2sdp"
                     android:padding="@dimen/_4sdp"
                     android:text="@string/value_type"
-                    android:textColor="@color/primary_color"
+                    android:fontFamily="@font/andika"
+                    android:textColor="@color/blue"
                     android:textSize="@dimen/_18ssp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginHorizontal="@dimen/_4sdp"
                     android:hint="@string/type"
                     android:textColorHint="@color/primary_color"
                     app:hintTextColor="@color/black"
@@ -118,25 +151,35 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
+                <ImageView
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/_4sdp"
+                    android:contentDescription="@string/image"
+                    android:src="@drawable/value" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_8sdp"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/_2sdp"
                     android:padding="@dimen/_4sdp"
                     android:text="@string/value"
-                    android:textColor="@color/primary_color"
+                    android:fontFamily="@font/andika"
+                    android:textColor="@color/blue"
                     android:textSize="@dimen/_18ssp" />
 
                 <EditText
                     android:id="@+id/edit_text_value"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_8sdp"
+                    android:layout_margin="@dimen/_2sdp"
                     android:hint="@string/enter_price_rule_value"
                     android:inputType="numberSigned"
+                    android:maxEms="4"
                     android:maxLines="1"
                     android:minEms="1"
-                    android:maxEms="4"
                     android:paddingHorizontal="@dimen/_4sdp" />
 
             </LinearLayout>
@@ -147,13 +190,23 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
+                <ImageView
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/_4sdp"
+                    android:contentDescription="@string/image"
+                    android:src="@drawable/calendar" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_8sdp"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/_2sdp"
                     android:padding="@dimen/_4sdp"
+                    android:fontFamily="@font/andika"
                     android:text="@string/starts_date"
-                    android:textColor="@color/primary_color"
+                    android:textColor="@color/blue"
                     android:textSize="@dimen/_18ssp" />
 
                 <EditText
@@ -162,7 +215,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_8sdp"
                     android:hint="@string/enter_start_date"
-                    android:inputType="datetime"
+                    android:inputType="none"
                     android:maxLines="1"
                     android:paddingHorizontal="@dimen/_4sdp" />
 
@@ -173,13 +226,23 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
+                <ImageView
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/_4sdp"
+                    android:contentDescription="@string/image"
+                    android:src="@drawable/calendar" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_8sdp"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/_2sdp"
                     android:padding="@dimen/_4sdp"
                     android:text="@string/end_date"
-                    android:textColor="@color/primary_color"
+                    android:fontFamily="@font/andika"
+                    android:textColor="@color/blue"
                     android:textSize="@dimen/_18ssp" />
 
                 <EditText
@@ -188,7 +251,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_8sdp"
                     android:hint="@string/enter_end_date"
-                    android:inputType="datetime"
+                    android:inputType="none"
                     android:maxLines="1"
                     android:paddingHorizontal="@dimen/_4sdp" />
 
@@ -199,13 +262,23 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
+                <ImageView
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/_4sdp"
+                    android:contentDescription="@string/image"
+                    android:src="@drawable/limited" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_8sdp"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/_2sdp"
                     android:padding="@dimen/_4sdp"
                     android:text="@string/limit"
-                    android:textColor="@color/primary_color"
+                    android:fontFamily="@font/andika"
+                    android:textColor="@color/blue"
                     android:textSize="@dimen/_18ssp" />
 
                 <EditText
@@ -215,9 +288,9 @@
                     android:layout_margin="@dimen/_8sdp"
                     android:hint="@string/enter_price_rule_value"
                     android:inputType="number"
+                    android:maxEms="2"
                     android:maxLines="1"
                     android:minEms="1"
-                    android:maxEms="2"
                     android:paddingHorizontal="@dimen/_4sdp" />
 
             </LinearLayout>

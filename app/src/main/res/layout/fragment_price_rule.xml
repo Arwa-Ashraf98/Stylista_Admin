@@ -2,9 +2,9 @@
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipePriceRule"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/swipePriceRule"
     tools:context=".priceRule.presentation.priceRule.ui.PriceRuleFragment">
 
     <FrameLayout
@@ -61,6 +61,7 @@
                 android:layout_marginStart="@dimen/_8sdp"
                 android:text="@string/price_rules"
                 android:textColor="@color/black"
+                android:fontFamily="@font/andika"
                 android:textSize="@dimen/_20sdp"
                 app:layout_constraintBottom_toBottomOf="@id/image_view_back"
                 app:layout_constraintStart_toEndOf="@id/image_view_back"
@@ -71,7 +72,8 @@
                 android:id="@+id/recycler_price_rule"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginVertical="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginBottom="@dimen/_4sdp"
                 android:orientation="vertical"
                 android:padding="@dimen/_4sdp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

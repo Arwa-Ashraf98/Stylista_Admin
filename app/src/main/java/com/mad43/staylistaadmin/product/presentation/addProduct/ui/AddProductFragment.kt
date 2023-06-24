@@ -1,12 +1,23 @@
 package com.mad43.staylistaadmin.product.presentation.addProduct.ui
 
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.InputType
+import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
@@ -22,6 +33,7 @@ import com.mad43.staylistaadmin.product.presentation.addProduct.viewModel.AddPro
 import com.mad43.staylistaadmin.product.presentation.addProduct.viewModel.AddProductViewModelFactory
 import com.mad43.staylistaadmin.utils.*
 import kotlinx.coroutines.launch
+import java.io.ByteArrayOutputStream
 
 class AddProductFragment : Fragment() {
     private var _binding: FragmentAddProductBinding? = null
@@ -36,6 +48,9 @@ class AddProductFragment : Fragment() {
     private lateinit var secondProductModel: SecondProductModel
     private lateinit var imageRoot: ImageRoot
     private var type = ""
+    private var vendor = ""
+    private var bitmap: Bitmap? = null
+    private var attachemnt = ""
 
 
     override fun onCreateView(
@@ -71,7 +86,7 @@ class AddProductFragment : Fragment() {
                 val poster = editTextPoster.text.toString().trim()
                 val tags = editTextProductTags.text.toString().trim()
                 val description = editTextProductDescription.text.toString().trim()
-                val vendor = editTextProductVendorAdd.text.toString().trim()
+                vendor = autoCompleteTextViewVendor.text.toString().trim()
                 this@AddProductFragment.addProductViewModel.validateProduct(
                     title,
                     tags,
@@ -83,10 +98,16 @@ class AddProductFragment : Fragment() {
                 observeProductValidation(type, title, vendor, poster, tags, description)
             }
 
-            autoCompleteTextViewtype.setOnItemClickListener { adapterView, view, i, l ->
+//
+
+            autoCompleteTextViewtype.setOnItemClickListener { _, _, _, _ ->
                 type = autoCompleteTextViewtype.text.toString().trim()
                 this@AddProductFragment.addProductViewModel.setType(type)
                 setSizeType()
+            }
+
+            autoCompleteTextViewVendor.setOnItemClickListener { _, _, _, _ ->
+                vendor = autoCompleteTextViewVendor.text.toString().trim()
             }
 
             btnNext.setOnClickListener {
@@ -136,7 +157,7 @@ class AddProductFragment : Fragment() {
                 if (btnDone.isClickable) {
                     val imageUrl = binding.editTextProductImageUriAdd.text.toString().trim()
                     this@AddProductFragment.addProductViewModel.validateImageUrl(imageUrl)
-                    observeImageUrl(imageUrl)
+                    observeImageUrl()
                 } else {
                     showToast(getString(R.string.this_button_is_not_clickable))
                 }
@@ -155,6 +176,87 @@ class AddProductFragment : Fragment() {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode != AppCompatActivity.RESULT_CANCELED) {
+            when (requestCode) {
+                0 -> if (resultCode == AppCompatActivity.RESULT_OK && data != null) {
+                    bitmap = data.extras!!["data"] as Bitmap?
+                    binding.image.setImageBitmap(bitmap)
+
+                }
+
+                1 -> if (resultCode == AppCompatActivity.RESULT_OK && data != null) {
+                    val selectedImage = data.data
+                    val inputStream =
+                        selectedImage?.let { requireActivity().contentResolver.openInputStream(it) }
+                    bitmap = BitmapFactory.decodeStream(inputStream)
+                    binding.image.setImageBitmap(bitmap)
+                    attachemnt = convertBitmapToBase64(bitmap)!!
+
+                }
+            }
+        }
+    }
+
+    private fun convertBitmapToBase64(bitmap: Bitmap?): String? {
+        return if (bitmap != null) {
+            val byteArrayOutputStream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+            val byteArray = byteArrayOutputStream.toByteArray()
+            val base64 = Base64.encodeToString(byteArray, Base64.DEFAULT)
+            base64
+        } else {
+            null
+        }
+    }
+
+    private fun chooseImage(context: Context) {
+        val optionsMenu = arrayOf<CharSequence>(
+            "Take Photo",
+            "Choose from Gallery",
+        )
+        val builder = AlertDialog.Builder(context)
+        builder.setItems(optionsMenu) { _, i ->
+            when (optionsMenu[i]) {
+                "Take Photo" -> {
+                    val takePicture = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                    startActivityForResult(takePicture, 0)
+                }
+                "Choose from Gallery" -> {
+                    val pickPhoto =
+                        Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                    startActivityForResult(pickPhoto, 1)
+                }
+            }
+        }
+        builder.show()
+    }
+
+    private fun checkPermission() {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                android.Manifest.permission.CAMERA
+            ) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
+                requireContext(),
+                android.Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(
+                    android.Manifest.permission.CAMERA,
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE
+                ),
+                0
+            )
+            showToast("permission granter")
+        } else {
+            showToast("permission not granted")
+        }
+    }
+
+
     private fun setSizeType() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -163,8 +265,7 @@ class AddProductFragment : Fragment() {
                         binding.editTextProductSizeAdd.enableEditText()
                         binding.editTextProductSizeAdd.inputType =
                             InputType.TYPE_CLASS_NUMBER
-                    } else if (it.equals("accessories", true)) {
-                        binding.editTextProductSizeAdd.unEnableEditText()
+
                     } else {
                         binding.editTextProductSizeAdd.enableEditText()
                         binding.editTextProductSizeAdd.inputType =
@@ -180,6 +281,17 @@ class AddProductFragment : Fragment() {
         setTypeArray()
         setColorArray()
         setCategoryArray()
+        setVendorArray()
+    }
+
+    private fun setVendorArray() {
+        val stringArrayColor = resources.getStringArray(R.array.vendorType)
+        val vendorAdapter = ArrayAdapter(
+            requireActivity().applicationContext,
+            R.layout.item_type_drop_down,
+            stringArrayColor
+        )
+        binding.autoCompleteTextViewVendor.setAdapter(vendorAdapter)
     }
 
     private fun setCategoryArray() {
@@ -265,7 +377,7 @@ class AddProductFragment : Fragment() {
                                     )
                                 }
                                 Const.VENDOR -> {
-                                    binding.editTextProductVendorAdd.setErrorMessage(
+                                    binding.autoCompleteTextViewVendor.setErrorMessage(
                                         requireActivity().getString(
                                             it.message
                                         )
@@ -408,7 +520,7 @@ class AddProductFragment : Fragment() {
         }
     }
 
-    private fun observeImageUrl(url: String) {
+    private fun observeImageUrl() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 addProductViewModel.validationStateFlow.collect {
@@ -416,9 +528,11 @@ class AddProductFragment : Fragment() {
                         is ValidateState.OnValidateSuccess -> {
                             binding.progressBarImage.hideProgress()
                             // navigate to back and add object to variant list
-                            val image = Image(src = url)
+
+                            val image = Image(attachment = attachemnt)
                             imageList.add(image)
-                            Log.e("TAG", imageList.toString())
+                            Log.e("TAGI", imageList.toString())
+                            Log.e("TAGI", attachemnt)
                             binding.apply {
                                 editTextProductImageUriAdd.clearText()
                             }
@@ -451,12 +565,14 @@ class AddProductFragment : Fragment() {
                     when (it) {
                         is ValidateState.OnValidateSuccess -> {
                             binding.progressBarImage.hideProgress()
-                            Log.e("TAG", "observeUpdateImages: 000000", )
+                            Log.e("TAG", "observeUpdateImages: 000000")
                             Navigation.findNavController(this@AddProductFragment.requireView())
                                 .navigateUp()
                         }
 
                         is ValidateState.OnValidateError -> {
+                            Log.e("TAG", "observeUpdateImages: E000000")
+                            showToast(requireActivity().getString(it.message))
                             binding.progressBarImage.hideProgress()
                         }
 

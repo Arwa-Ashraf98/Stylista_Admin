@@ -4,7 +4,7 @@ data class Product(
     val created_at: String? = "",
     val handle: String? = "",
     val id: Long? = 0L,
-    val body_html : String? = "",
+    var body_html : String? = "",
     val image: Image? = Image(
         "",
         null,

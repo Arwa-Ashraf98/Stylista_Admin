@@ -1,17 +1,24 @@
 package com.mad43.staylistaadmin.priceRule.presentation.createPriceRule.ui
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.Navigation
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointForward
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.mad43.staylistaadmin.R
 import com.mad43.staylistaadmin.databinding.FragmentCreatePriceRuleBinding
 import com.mad43.staylistaadmin.priceRule.data.entity.PriceRule
@@ -22,6 +29,8 @@ import com.mad43.staylistaadmin.priceRule.presentation.createPriceRule.viewModel
 import com.mad43.staylistaadmin.priceRule.presentation.createPriceRule.viewModel.CreatePriceViewModelFactory
 import com.mad43.staylistaadmin.utils.*
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class CreatePriceRuleFragment : Fragment() {
@@ -31,6 +40,11 @@ class CreatePriceRuleFragment : Fragment() {
     private lateinit var viewModelFactory: CreatePriceViewModelFactory
     private var typeValue = ""
     private lateinit var priceRule: PriceRule
+    private lateinit var builder: MaterialDatePicker.Builder<*>
+    private lateinit var picker: MaterialDatePicker<*>
+    private lateinit var calendarConstraintBuilder: CalendarConstraints.Builder
+    private lateinit var calendar: Calendar
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,8 +58,22 @@ class CreatePriceRuleFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
+        builder = MaterialDatePicker.Builder.datePicker()
+            .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+        initDatePicker()
         onClicks()
 
+    }
+
+    private fun setDefaultLanguage(context: Context, lang: String?) {
+        val locale = Locale(lang)
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.locale = locale
+        context.resources.updateConfiguration(
+            config,
+            context.resources.displayMetrics
+        )
     }
 
     private fun initViewModel() {
@@ -63,9 +91,70 @@ class CreatePriceRuleFragment : Fragment() {
                 getData()
             }
 
+            imageViewBack.setOnClickListener {
+                Navigation.findNavController(
+                    it
+                ).navigateUp()
+            }
+
+            editTextStartsAt.setOnClickListener {
+                showDatePicker(true, it as EditText)
+                picker.show(requireActivity().supportFragmentManager, "DATE_PICKER1")
+            }
+
+            editTextEndDate.setOnClickListener {
+                showDatePicker(false, it as EditText)
+                picker.show(requireActivity().supportFragmentManager, "DATE_PICKER2")
+            }
+
             autoCompleteTextViewPriceRuleType.setOnItemClickListener { adapterView, view, i, l ->
                 typeValue = autoCompleteTextViewPriceRuleType.text.toString().trim()
             }
+
+        }
+    }
+
+    private fun initDatePicker() {
+        setDefaultLanguage(requireContext(), "en")
+        builder.setTitleText("Select Date")
+        builder.setTheme(R.style.ThemeOverlay_App_MaterialCalendar)
+        builder.setInputMode(MaterialDatePicker.INPUT_MODE_CALENDAR)
+        calendarConstraintBuilder = CalendarConstraints.Builder()
+        calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+        calendar.set(Calendar.MONTH, Calendar.JUNE)
+        val june: Long = calendar.timeInMillis
+        calendar.set(Calendar.MONTH, Calendar.JULY)
+        val july: Long = calendar.timeInMillis
+        calendarConstraintBuilder.setStart(june)
+        calendarConstraintBuilder.setEnd(july)
+        calendarConstraintBuilder.setFirstDayOfWeek(Calendar.SATURDAY)
+        calendarConstraintBuilder.setValidator(DateValidatorPointForward.now());
+        builder.setCalendarConstraints(calendarConstraintBuilder.build())
+        picker = builder.build()
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun showDatePicker(isFrom: Boolean, editText: EditText) {
+        picker.addOnPositiveButtonClickListener {
+            Log.e("TAG", picker.headerText)
+            val format1 = SimpleDateFormat("yyyy-MM-dd")
+            val formatted: String = format1.format(calendar.time)
+            Log.e("TAG11", formatted)
+            editText.setText(formatted)
+            if (!isFrom) {
+                val afterOneDay =
+                    MaterialDatePicker.todayInUtcMilliseconds().plus(24 * 60 * 60 * 60)
+                builder = MaterialDatePicker.Builder.datePicker().setSelection(afterOneDay)
+                builder.setTitleText("Select Date")
+                builder.setTheme(R.style.ThemeOverlay_App_MaterialCalendar)
+                builder.setInputMode(MaterialDatePicker.INPUT_MODE_CALENDAR)
+                calendarConstraintBuilder.setValidator(DateValidatorPointForward.from(afterOneDay))
+                builder.setCalendarConstraints(calendarConstraintBuilder.build())
+            }
+        }
+
+        picker.addOnNegativeButtonClickListener {
+            picker.dismiss()
         }
     }
 

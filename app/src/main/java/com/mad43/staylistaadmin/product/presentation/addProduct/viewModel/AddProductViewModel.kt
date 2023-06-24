@@ -95,7 +95,6 @@ class AddProductViewModel(private val repo: RepoInterface) : ViewModel() {
                     R.string.description_must_not_be_empty,
                     Const.DESCRIPTION
                 )
-
         } else if (tags.isEmpty()) {
             validationMutableStateFlow.value =
                 ValidateState.OnValidateError(R.string.tags_must_not_be_empty, Const.TAGS)
@@ -129,10 +128,12 @@ class AddProductViewModel(private val repo: RepoInterface) : ViewModel() {
         }.collect {
             val data = it.body()
             if (it.isSuccessful) {
-                validationMutableStateFlow.value = ValidateState.OnValidateSuccess(R.string.success)
+                dataMutableStateFlow.value = ProductAPIState.OnSuccess(data!!)
+//                validationMutableStateFlow.value = ValidateState.OnValidateSuccess(R.string.success)
             } else {
-                validationMutableStateFlow.value =
-                    ValidateState.OnValidateError(R.string.failed_update_data, Const.UPDATE)
+
+//                validationMutableStateFlow.value =
+//                    ValidateState.OnValidateError(R.string.failed_update_data, Const.UPDATE)
             }
         }
     }

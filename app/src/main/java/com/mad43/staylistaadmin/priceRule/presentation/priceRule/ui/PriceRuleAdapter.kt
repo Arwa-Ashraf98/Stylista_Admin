@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.mad43.staylistaadmin.databinding.ItemPriceRuleBinding
 import com.mad43.staylistaadmin.priceRule.data.entity.PriceRule
+import com.mad43.staylistaadmin.utils.Helpers
 
 class PriceRuleAdapter() : Adapter<PriceRuleAdapter.PriceRuleHolder>() {
     private var list: List<PriceRule> = listOf()
@@ -37,6 +38,11 @@ class PriceRuleAdapter() : Adapter<PriceRuleAdapter.PriceRuleHolder>() {
         val model = list[position]
         holder.binding.apply {
             textViewPriceRule.text = model.title
+            textViewPriceRuleValue.text = model.value
+            val startDate = Helpers.transformDate(model.starts_at, Helpers.monthDatePattern)
+            val endDate = Helpers.transformDate(model.ends_at, Helpers.monthDatePattern)
+            textViewEndDate.text = endDate
+            textViewStartDate.text = startDate
         }
     }
 
@@ -44,8 +50,11 @@ class PriceRuleAdapter() : Adapter<PriceRuleAdapter.PriceRuleHolder>() {
     inner class PriceRuleHolder(var binding: ItemPriceRuleBinding) : ViewHolder(binding.root) {
         init {
             binding.apply {
-                textViewPriceRule.setOnClickListener {
-                    setOnPriceRuleClickListener?.onPriceRuleClickListener(list[layoutPosition].id, list[layoutPosition])
+                priceRuleLayout.setOnClickListener {
+                    setOnPriceRuleClickListener?.onPriceRuleClickListener(
+                        list[layoutPosition].id,
+                        list[layoutPosition]
+                    )
                 }
 
                 imageViewDeletePriceRule.setOnClickListener {
@@ -58,6 +67,6 @@ class PriceRuleAdapter() : Adapter<PriceRuleAdapter.PriceRuleHolder>() {
 
     interface OnPriceRuleListener {
         fun onDeletePriceRule(id: Long)
-        fun onPriceRuleClickListener(id: Long , priceRule: PriceRule)
+        fun onPriceRuleClickListener(id: Long, priceRule: PriceRule)
     }
 }

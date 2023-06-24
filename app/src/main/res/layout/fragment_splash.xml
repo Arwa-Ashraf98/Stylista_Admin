@@ -1,23 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".splash.presentation.ui.SplashFragment">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#B5701639"
-        android:contentDescription="@string/image" />
+<!--    <ImageView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:background="#B5701639"-->
+<!--        android:contentDescription="@string/image" />-->
 
-    <ImageView
+<!--    <ImageView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:contentDescription="@string/image"-->
+<!--        android:src="@drawable/logo" />-->
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/splashLottieCloud"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/splash_lottie"
+        />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:contentDescription="@string/image"
-        android:src="@drawable/aswaaq_logo" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:layout_marginTop="30dp"
+        android:textColor="@color/primary_color"
+        android:text="@string/app_name"
+        android:fontFamily="@font/andika"
+        app:layout_constraintTop_toBottomOf="@id/splashLottieCloud"/>
 
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

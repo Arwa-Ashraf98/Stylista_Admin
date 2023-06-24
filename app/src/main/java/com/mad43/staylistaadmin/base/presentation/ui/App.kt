@@ -14,7 +14,7 @@ class App : Application() {
         networkChecker?.initNetworkChecker(this)
         NetworkConnectivityObserver.initNetworkConnectivityObserver(this)
         MySharedPreferences.initSharedPreferences(this)
-        MySharedPreferences.setShopName(Const.SHOP_NAME_VALUE)
-        MySharedPreferences.setShopPassword(Const.SHOP_PASSWORD_VALUE)
+//        MySharedPreferences.setShopName(Const.SHOP_NAME_VALUE)
+//        MySharedPreferences.setShopPassword(Const.SHOP_PASSWORD_VALUE)
     }
 }

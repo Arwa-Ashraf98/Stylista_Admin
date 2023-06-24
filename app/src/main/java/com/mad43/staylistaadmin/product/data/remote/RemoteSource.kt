@@ -38,11 +38,19 @@ class RemoteSource private constructor() : RemoteSourceInterface {
         return RetrofitConnection.getServices().uploadPosterImage(id, imageRoot)
     }
 
+    override suspend fun deleteProductImage(productId: Long, imageId: Long): Response<ImageRoot> {
+        return RetrofitConnection.getServices().deleteImage(productId, imageId)
+    }
+
     override suspend fun updateProduct(
         id: Long,
         secondProductModel: SecondProductModel
     ): Response<SecondProductModel> {
         return RetrofitConnection.getServices().updateProduct(id, secondProductModel)
+    }
+
+    override suspend fun deleteVariant(productId: Long, variantId: Long): Response<Void> {
+        return RetrofitConnection.getServices().deleteVariant(productId, variantId)
     }
 
     override suspend fun updateQuantity(inventoryLevel: InventoryLevel): Response<InventoryLevelRoot> {

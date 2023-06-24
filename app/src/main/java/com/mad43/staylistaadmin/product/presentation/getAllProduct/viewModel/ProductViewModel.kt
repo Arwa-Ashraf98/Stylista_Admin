@@ -3,6 +3,7 @@ package com.mad43.staylistaadmin.product.presentation.getAllProduct.viewModel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mad43.staylistaadmin.product.data.entity.Product
 import com.mad43.staylistaadmin.product.data.entity.ProductModel
 import com.mad43.staylistaadmin.product.domain.repo.RepoInterface
 import com.mad43.staylistaadmin.utils.APIState
@@ -25,6 +26,7 @@ class ProductViewModel(
     val deleteErrorStateFlow: StateFlow<String> = errorMStateFlow
     private val deletedMutableStateFlow = MutableStateFlow(false)
     val deletedDataStateFlow: StateFlow<Boolean> = deletedMutableStateFlow
+    var allProductList = listOf<Product>()
 
 
     suspend fun getAllProduct() {
@@ -34,11 +36,23 @@ class ProductViewModel(
         }.collect { response ->
             if (response.isSuccessful) {
                 val data = response.body()
+                allProductList = data?.products!!
                 mutableStateFlow.value = APIState.OnSuccess(data as ProductModel)
             } else {
                 errorMStateFlow.value = response.errorBody().toString()
             }
         }
+
+    }
+
+    fun searchProduct(query : String) : List<Product> {
+            return if (query.isNullOrBlank()) {
+                allProductList
+            } else {
+                allProductList.filter { product ->
+                    product.title?.contains(query, true)!!
+                }
+            }
 
     }
 

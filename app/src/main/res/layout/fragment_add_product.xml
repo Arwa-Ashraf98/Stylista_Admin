@@ -4,29 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash"
     tools:context=".product.presentation.addProduct.ui.AddProductFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background"
         android:layout_marginBottom="@dimen/_8sdp"
-        android:paddingBottom="@dimen/_8sdp"
-        >
+        android:paddingBottom="@dimen/_8sdp">
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_save_product"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_done_all_24"
             android:layout_margin="@dimen/_5sdp"
+            android:backgroundTint="@color/primary_color"
+            android:contentDescription="@string/image"
+            android:src="@drawable/baseline_done_all_24"
+            app:fabSize="normal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:backgroundTint="@color/primary_color"
-            app:fabSize="normal"
-            app:tint="@color/white"
-            android:contentDescription="@string/image"
-            />
+            app:tint="@color/white" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -52,6 +50,7 @@
                 android:layout_marginStart="@dimen/_8sdp"
                 android:text="@string/add_products"
                 android:textColor="@color/black"
+                android:fontFamily="@font/andika"
                 android:textSize="@dimen/_20sdp"
                 app:layout_constraintBottom_toBottomOf="@id/image_view_back"
                 app:layout_constraintStart_toEndOf="@id/image_view_back"
@@ -64,6 +63,7 @@
                 android:layout_margin="@dimen/_8sdp"
                 android:text="@string/product"
                 android:textColor="@color/black"
+                android:fontFamily="@font/andika"
                 android:textSize="@dimen/_16ssp"
                 android:textStyle="italic"
                 app:layout_constraintBottom_toTopOf="@id/productCard"
@@ -117,6 +117,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="@dimen/_4sdp"
                                 android:text="@string/poster"
+                                android:fontFamily="@font/andika"
                                 android:textColor="@color/primary_color"
                                 android:textSize="@dimen/_14ssp"
                                 android:textStyle="bold"
@@ -149,6 +150,7 @@
                                 android:layout_margin="@dimen/_4sdp"
                                 android:text="@string/product_name"
                                 android:textColor="@color/primary_color"
+                                android:fontFamily="@font/andika"
                                 android:textSize="@dimen/_14ssp"
                                 android:textStyle="bold"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -181,6 +183,7 @@
                                 android:layout_margin="@dimen/_4sdp"
                                 android:text="@string/product_type"
                                 android:textColor="@color/primary_color"
+                                android:fontFamily="@font/andika"
                                 android:textSize="@dimen/_14ssp"
                                 android:textStyle="bold"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -196,14 +199,14 @@
                                 app:hintTextColor="@color/black"
                                 app:layout_constraintTop_toTopOf="parent">
 
-                            <AutoCompleteTextView
-                                android:id="@+id/autoCompleteTextViewtype"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:autofillHints="none"
-                                android:inputType="none"
-                                android:text="@string/type" />
+                                <AutoCompleteTextView
+                                    android:id="@+id/autoCompleteTextViewtype"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:autofillHints="none"
+                                    android:inputType="none"
+                                    android:text="@string/enter_product_type" />
                             </com.google.android.material.textfield.TextInputLayout>
                         </LinearLayout>
 
@@ -219,24 +222,31 @@
                                 android:layout_margin="@dimen/_4sdp"
                                 android:text="@string/vendor"
                                 android:textColor="@color/primary_color"
+                                android:fontFamily="@font/andika"
                                 android:textSize="@dimen/_14ssp"
                                 android:textStyle="bold"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/addProducts" />
 
-                            <EditText
-                                android:id="@+id/edit_text_product_vendor_add"
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="@dimen/_4sdp"
-                                android:autofillHints="name"
-                                android:hint="@string/enter_vendor_name"
-                                android:inputType="textPersonName"
-                                android:maxEms="15"
-                                android:maxLines="1"
-                                android:paddingStart="@dimen/_4sdp"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_12ssp" />
+                                android:layout_marginHorizontal="16dp"
+                                android:hint="@string/vendor"
+                                android:textColorHint="@color/primary_color"
+                                app:hintTextColor="@color/black"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/autoCompleteTextViewVendor"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:autofillHints="none"
+                                    android:inputType="none"
+                                    android:text="@string/enter_vendor_name" />
+                            </com.google.android.material.textfield.TextInputLayout>
                         </LinearLayout>
 
                         <LinearLayout
@@ -250,6 +260,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="@dimen/_4sdp"
                                 android:text="@string/description"
+                                android:fontFamily="@font/andika"
                                 android:textColor="@color/primary_color"
                                 android:textSize="@dimen/_14ssp"
                                 android:textStyle="bold"
@@ -287,6 +298,7 @@
                                 android:textColor="@color/primary_color"
                                 android:textSize="@dimen/_14ssp"
                                 android:textStyle="bold"
+                                android:fontFamily="@font/andika"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/addProducts" />
 
@@ -324,6 +336,7 @@
                 android:text="@string/variant"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_16ssp"
+                android:fontFamily="@font/andika"
                 android:textStyle="italic"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -377,6 +390,7 @@
                                 android:text="@string/price"
                                 android:textColor="@color/primary_color"
                                 android:textSize="@dimen/_14ssp"
+                                android:fontFamily="@font/andika"
                                 android:textStyle="bold"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/addProducts" />
@@ -389,14 +403,12 @@
                                 android:autofillHints="name"
                                 android:hint="@string/enter_product_price"
                                 android:inputType="number"
+                                android:maxLength="4"
                                 android:maxLines="1"
-                                android:maxEms="4"
-                                android:minEms="3"
                                 android:paddingStart="@dimen/_4sdp"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp" />
                         </LinearLayout>
-
 
 
                         <LinearLayout
@@ -413,6 +425,7 @@
                                 android:textColor="@color/primary_color"
                                 android:textSize="@dimen/_14ssp"
                                 android:textStyle="bold"
+                                android:fontFamily="@font/andika"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/addProducts" />
 
@@ -424,8 +437,7 @@
                                 android:autofillHints="name"
                                 android:hint="@string/enter_Product_Quantity"
                                 android:inputType="number"
-                                android:maxEms="2"
-                                android:minEms="1"
+                                android:maxLength="2"
                                 android:maxLines="1"
                                 android:paddingStart="@dimen/_4sdp"
                                 android:textColor="@color/black"
@@ -446,6 +458,7 @@
                                 android:textColor="@color/primary_color"
                                 android:textSize="@dimen/_14ssp"
                                 android:textStyle="bold"
+                                android:fontFamily="@font/andika"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/addProducts" />
 
@@ -466,7 +479,7 @@
                                     android:layout_weight="1"
                                     android:autofillHints="none"
                                     android:inputType="none"
-                                    android:text="@string/color" />
+                                    android:text="@string/enter_product_color" />
                             </com.google.android.material.textfield.TextInputLayout>
                         </LinearLayout>
 
@@ -484,6 +497,7 @@
                                 android:textColor="@color/primary_color"
                                 android:textSize="@dimen/_14ssp"
                                 android:textStyle="bold"
+                                android:fontFamily="@font/andika"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/addProducts" />
 
@@ -491,12 +505,11 @@
                                 android:id="@+id/edit_text_product_size_add"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginVertical="@dimen/_8sdp"
                                 android:layout_marginHorizontal="@dimen/_4sdp"
+                                android:layout_marginVertical="@dimen/_8sdp"
                                 android:autofillHints="name"
                                 android:hint="@string/enter_product_size"
-                                android:maxEms="2"
-                                android:minEms="1"
+                                android:maxLength="2"
                                 android:maxLines="1"
                                 android:paddingStart="@dimen/_4sdp"
                                 android:textColor="@color/black"
@@ -548,6 +561,7 @@
                 android:layout_margin="@dimen/_8sdp"
                 android:text="@string/images"
                 android:textColor="@color/black"
+                android:fontFamily="@font/andika"
                 android:textSize="@dimen/_16ssp"
                 android:textStyle="italic"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -603,21 +617,31 @@
                                 android:textColor="@color/primary_color"
                                 android:textSize="@dimen/_14ssp"
                                 android:textStyle="bold"
+                                android:fontFamily="@font/andika"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/addProducts" />
 
                             <EditText
                                 android:id="@+id/edit_text_product_image_uri_add"
-                                android:layout_width="match_parent"
+                                android:layout_width="@dimen/_200sdp"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="@dimen/_4sdp"
                                 android:autofillHints="name"
-                                android:hint="@string/enter_product_size"
+                                android:hint="@string/image"
                                 android:inputType="textUri"
                                 android:maxLines="1"
                                 android:paddingStart="@dimen/_4sdp"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp" />
+
+                            <ImageView
+                                android:id="@+id/image"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:visibility="gone"
+                                android:contentDescription="@string/image"
+                                android:src="@drawable/baseline_done_all_24" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -659,8 +683,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 
 </androidx.core.widget.NestedScrollView>

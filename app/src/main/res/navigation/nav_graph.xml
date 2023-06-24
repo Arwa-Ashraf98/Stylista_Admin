@@ -97,15 +97,29 @@
         <argument
             android:name="id"
             app:argType="long" />
-        <action
-            android:id="@+id/action_discountFragment_to_discountDetailsFragment"
-            app:destination="@id/discountDetailsFragment" />
         <argument
             android:name="price_rule"
             app:argType="com.mad43.staylistaadmin.priceRule.data.entity.PriceRule" />
         <action
             android:id="@+id/action_discountFragment_to_createDiscountFragment"
             app:destination="@id/createDiscountFragment" />
+        <action
+            android:id="@+id/action_discountFragment_to_discountDetailsFragment"
+            app:destination="@id/discountDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createPriceRuleFragment"
+        android:name="com.mad43.staylistaadmin.priceRule.presentation.createPriceRule.ui.CreatePriceRuleFragment"
+        android:label="fragment_create_price_rule"
+        tools:layout="@layout/fragment_create_price_rule" />
+    <fragment
+        android:id="@+id/createDiscountFragment"
+        android:name="com.mad43.staylistaadmin.discount.presentation.createDiscount.ui.CreateDiscountFragment"
+        android:label="fragment_create_discount"
+        tools:layout="@layout/fragment_create_discount" >
+        <argument
+            android:name="price_rule_id"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/discountDetailsFragment"
@@ -113,26 +127,13 @@
         android:label="fragment_discount_details"
         tools:layout="@layout/fragment_discount_details" >
         <argument
-            android:name="discount_id"
-            app:argType="long" />
+            android:name="price_rule"
+            app:argType="com.mad43.staylistaadmin.priceRule.data.entity.PriceRule" />
         <argument
             android:name="price_rule_id"
             app:argType="long" />
         <argument
-            android:name="value"
-            app:argType="string" />
-        <argument
-            android:name="limits"
-            app:argType="integer" />
+            android:name="discount_id"
+            app:argType="long" />
     </fragment>
-    <fragment
-        android:id="@+id/createPriceRuleFragment"
-        android:name="com.mad43.staylistaadmin.priceRule.presentation.createPriceRule.ui.CreatePriceRuleFragment"
-        android:label="fragment_create_price_rule"
-        tools:layout="@layout/fragment_create_price_rule" />
-    <dialog
-        android:id="@+id/createDiscountFragment"
-        android:name="com.mad43.staylistaadmin.discount.presentation.createDiscount.ui.CreateDiscountFragment"
-        android:label="fragment_create_discount"
-        tools:layout="@layout/fragment_create_discount" />
 </navigation>

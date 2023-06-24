@@ -10,8 +10,13 @@ import com.mad43.staylistaadmin.utils.loadImage
 
 class ImageAdapter() : Adapter<ImageAdapter.ImageHolder>() {
     private var list = listOf<Image>()
+    private var onImageItemClickListener: OnImageItemClickListener? = null
     fun setList(list: List<Image>) {
         this.list = list
+    }
+
+    fun setOnItemImageClickListener(onImageItemClickListener: OnImageItemClickListener) {
+        this.onImageItemClickListener = onImageItemClickListener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageAdapter.ImageHolder {
@@ -37,6 +42,19 @@ class ImageAdapter() : Adapter<ImageAdapter.ImageHolder>() {
 
     inner class ImageHolder(val binding: ItemDetailedProductImagesBinding) :
         ViewHolder(binding.root) {
+        init {
+            binding.apply {
+                btnDeleteImage.setOnClickListener {
+                    onImageItemClickListener?.setOnImageItemClickListener(
+                        list[layoutPosition].product_id!!,
+                        list[layoutPosition].id!!
+                    )
+                }
+            }
+        }
+    }
 
+    interface OnImageItemClickListener {
+        fun setOnImageItemClickListener(productId: Long, imageId: Long)
     }
 }

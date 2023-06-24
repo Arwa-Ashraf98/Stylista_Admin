@@ -11,5 +11,8 @@ data class Image(
     val src: String? = "",
     val updated_at: String? = "",
     val variant_ids: List<Any>? = emptyList(),
-    val width: Int? = 0
-)
+    val width: Int? = 0 ,
+    var attachment: String?=null,
+    var metafields: List<Metafield?>? = listOf(Metafield()),
+    val filename: String?=null,
+    )

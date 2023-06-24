@@ -1,20 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardLayout"
+    android:layout_width="@dimen/_200sdp"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_4sdp"
-    android:elevation="@dimen/_8sdp"
-    android:padding="@dimen/_4sdp"
+    android:elevation="@dimen/_16sdp"
+    app:cardCornerRadius="@dimen/_16sdp">
 
-    app:cardCornerRadius="@dimen/_4sdp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:padding="@dimen/_2sdp">
 
-    <TextView
-        android:id="@+id/text_view_size"
-        android:layout_width="@dimen/_30sdp"
+        <ImageView
+            android:id="@+id/iSize"
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_10sdp"
+            app:layout_constraintTop_toTopOf="@id/text_view_size"
+            app:layout_constraintBottom_toBottomOf="@id/text_view_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/text_view_size"
+            android:layout_marginHorizontal="@dimen/_4sdp"
+            android:src="@drawable/size"
+            android:scaleType="fitXY"
+            android:contentDescription="@string/image"
+            />
+
+        <TextView
+            android:id="@+id/text_view_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/_14ssp"
+            android:fontFamily="@font/andika"
+            android:textStyle="bold"
+            android:layout_marginHorizontal="@dimen/_4sdp"
+            android:layout_marginVertical="@dimen/_2sdp"
+            app:layout_constraintStart_toEndOf="@id/iSize"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="arww" />
+
+        <ImageView
+            android:id="@+id/iColor"
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_10sdp"
+            app:layout_constraintTop_toTopOf="@id/text_view_color"
+            app:layout_constraintBottom_toBottomOf="@id/text_view_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/text_view_color"
+            android:layout_marginHorizontal="@dimen/_4sdp"
+            android:src="@drawable/color"
+            android:scaleType="fitXY"
+            android:contentDescription="@string/image"
+            />
+
+        <TextView
+            android:id="@+id/text_view_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/_14ssp"
+            android:fontFamily="@font/andika"
+            android:textStyle="bold"
+            android:layout_marginVertical="@dimen/_2sdp"
+            app:layout_constraintStart_toStartOf="@id/text_view_size"
+            app:layout_constraintTop_toBottomOf="@id/text_view_size"
+            tools:text="arww" />
+
+        <ImageView
+            android:id="@+id/iPrice"
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_10sdp"
+            app:layout_constraintTop_toTopOf="@id/text_view_variantPrice"
+            app:layout_constraintBottom_toBottomOf="@id/text_view_variantPrice"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/text_view_variantPrice"
+            android:layout_marginHorizontal="@dimen/_4sdp"
+            android:src="@drawable/price"
+            android:scaleType="fitXY"
+            android:contentDescription="@string/image"
+            />
+
+        <TextView
+            android:id="@+id/text_view_variantPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/_2sdp"
+            android:textColor="#566573"
+            android:textSize="@dimen/_12ssp"
+            android:fontFamily="@font/andika"
+            app:layout_constraintStart_toStartOf="@id/text_view_color"
+            app:layout_constraintTop_toBottomOf="@id/text_view_color"
+            tools:text="sjds," />
+
+        <ImageView
+            android:id="@+id/iDate"
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_10sdp"
+            app:layout_constraintTop_toTopOf="@id/text_view_updatedDate"
+            app:layout_constraintBottom_toBottomOf="@id/text_view_updatedDate"
+            app:layout_constraintEnd_toStartOf="@id/text_view_updatedDate"
+            android:layout_marginHorizontal="@dimen/_2sdp"
+            android:src="@drawable/calendar"
+            android:scaleType="fitXY"
+            android:contentDescription="@string/image"
+            />
+
+        <TextView
+            android:id="@+id/text_view_updatedDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:textColor="@color/red"
+            android:textSize="@dimen/_10ssp"
+            android:textStyle="bold"
+            android:fontFamily="@font/andika"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            app:layout_constraintStart_toEndOf="@id/text_view_size"
+            app:layout_constraintBottom_toBottomOf="@id/text_view_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_view_size"
+            tools:text="sjhfjds" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/btn_delete_variant"
+        android:layout_width="@dimen/_15sdp"
+        android:layout_height="@dimen/_15sdp"
+        android:layout_gravity="top|end"
+        android:layout_margin="@dimen/_8sdp"
+        android:backgroundTint="@color/white"
+        android:contentDescription="@string/image"
+        android:src="@drawable/close" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="@dimen/_25sdp"
         android:layout_height="@dimen/_25sdp"
-        android:textColor="@color/black"
-        android:gravity="center"
-        android:textSize="@dimen/_12ssp" />
+        android:layout_gravity="end|bottom"
+        android:layout_margin="@dimen/_8sdp"
+        app:cardCornerRadius="@dimen/_16sdp"
+        app:cardElevation="@dimen/_16sdp">
 
-</androidx.cardview.widget.CardView>
+        <ImageView
+            android:id="@+id/btn_edit_variant"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/_4sdp"
+            android:backgroundTint="@color/white"
+            android:contentDescription="@string/image"
+            android:src="@drawable/baseline_edit_24" />
+    </androidx.cardview.widget.CardView>
+
+
+</com.google.android.material.card.MaterialCardView>

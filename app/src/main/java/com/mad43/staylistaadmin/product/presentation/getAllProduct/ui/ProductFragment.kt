@@ -1,6 +1,8 @@
 package com.mad43.staylistaadmin.product.presentation.getAllProduct.ui
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +22,8 @@ import com.mad43.staylistaadmin.product.data.repo.Repo
 import com.mad43.staylistaadmin.product.presentation.getAllProduct.viewModel.ProductViewModel
 import com.mad43.staylistaadmin.product.presentation.getAllProduct.viewModel.ProductViewModelFactory
 import com.mad43.staylistaadmin.utils.*
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 
@@ -32,6 +36,8 @@ class ProductFragment : Fragment() {
     private lateinit var adapter: ProductAdapter
     private lateinit var networkChecker: NetworkChecker
     private var id: Long? = null
+    private lateinit var sharedFlow: MutableSharedFlow<String>
+    private var productFilteredList : MutableList<Product> ?= mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,7 +50,6 @@ class ProductFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.e("TAG", "onViewCreated: ")
         id = 0L
         networkChecker = NetworkChecker()
         adapter = ProductAdapter()
@@ -53,8 +58,11 @@ class ProductFragment : Fragment() {
         getData()
         swipeToRefresh()
         onClicks()
+    }
 
-
+    override fun onResume() {
+        super.onResume()
+        binding.editTextSearch.setText("")
     }
 
     private fun initViewModel() {
@@ -92,6 +100,7 @@ class ProductFragment : Fragment() {
                         is APIState.OnSuccess -> {
                             binding.progressBar.visibility = View.GONE
                             val list = it.productModel.products
+                            productFilteredList = list.toMutableList()
                             setRecycler(list)
                         }
 
@@ -113,17 +122,40 @@ class ProductFragment : Fragment() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 productViewModel.errorStateFlow.collect {
-                    showToast(it)
+//                    showToast(it)
                 }
             }
         }
     }
 
     private fun onClicks() {
+
         binding.apply {
             imageViewBack.setOnClickListener {
                 Navigation.findNavController(it).navigateUp()
             }
+
+            btnAddProduct.setOnClickListener {
+                navigateToNextScreen(R.id.action_productFragment_to_addProductFragment)
+            }
+
+            editTextSearch.addTextChangedListener(object  : TextWatcher{
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                }
+
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    var query = binding.editTextSearch.text.toString().trim()
+                    val list = this@ProductFragment.productViewModel.searchProduct(query = query)
+                    this@ProductFragment.adapter.setList(list)
+                    this@ProductFragment.adapter.notifyDataSetChanged()
+                }
+
+                override fun afterTextChanged(p0: Editable?) {
+
+                }
+
+            })
         }
         adapter.setOnItemClickListener(object : ProductAdapter.SetOnItemDetailsClickListener {
             override fun onItemClickListener(id: Long) {
@@ -138,9 +170,6 @@ class ProductFragment : Fragment() {
             }
         })
 
-        binding.btnAddProduct.setOnClickListener {
-            navigateToNextScreen(R.id.action_productFragment_to_addProductFragment)
-        }
     }
 
     private fun showDialog() {
@@ -176,9 +205,9 @@ class ProductFragment : Fragment() {
 
     private fun getErrorMessageFromDeleteProcess() {
         lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 productViewModel.deleteErrorStateFlow.collect {
-                    showToast(it)
+//                    showToast(it)
                 }
             }
         }
@@ -192,7 +221,6 @@ class ProductFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.e("TAG", "onDestroyView: ")
         _binding = null
     }
 

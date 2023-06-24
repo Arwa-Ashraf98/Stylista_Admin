@@ -37,12 +37,23 @@ class Repo private constructor(private val remoteSource: RemoteSourceInterface) 
         return flowOf(remoteSource.createProduct(productModel))
     }
 
+    override suspend fun deleteVariant(productId: Long, variantId: Long): Flow<Response<Void>> {
+        return flowOf(remoteSource.deleteVariant(productId, variantId))
+    }
+
 
     override suspend fun uploadPosterImage(
         id: Long,
         imageRoot: ImageRoot
     ): Flow<Response<ImageRoot>> {
         return flowOf(remoteSource.uploadPosterImage(id, imageRoot))
+    }
+
+    override suspend fun deleteProductImage(
+        productId: Long,
+        imageId: Long
+    ): Flow<Response<ImageRoot>> {
+        return flowOf(remoteSource.deleteProductImage(productId, imageId))
     }
 
     override suspend fun updateProduct(

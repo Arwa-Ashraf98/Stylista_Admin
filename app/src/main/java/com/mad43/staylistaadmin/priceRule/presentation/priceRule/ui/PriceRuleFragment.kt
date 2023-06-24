@@ -86,7 +86,7 @@ class PriceRuleFragment : Fragment() {
             }
 
             btnCreatePriceRule.setOnClickListener {
-                navigateToNextScreen(R.id.action_priceRuleFragment_to_createPriceRuleFragment)
+                navigateToNextScreen(R.id.createPriceRuleFragment)
             }
         }
     }

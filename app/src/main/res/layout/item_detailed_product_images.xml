@@ -1,18 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="@dimen/_4sdp"
     android:elevation="@dimen/_8sdp"
     android:layout_margin="@dimen/_4sdp"
-    android:layout_height="wrap_content">
+    android:layout_height="@dimen/_120sdp">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:layout_width="@dimen/_100sdp"
         android:layout_height="@dimen/_100sdp"
         android:id="@+id/image_view_detailed_product_item"
         android:contentDescription="@string/image"
         android:scaleType="fitXY"
+        app:shapeAppearance="@style/Rounded"
+        android:layout_margin="@dimen/_2sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/splash"
         />
 
-</androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="@dimen/_25sdp"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="@dimen/_4sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:cardCornerRadius="@dimen/_16sdp"
+        app:cardElevation="@dimen/_16sdp">
+
+        <ImageView
+            android:id="@+id/btn_delete_image"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/_4sdp"
+            android:backgroundTint="@color/white"
+            android:contentDescription="@string/image"
+            android:src="@drawable/delete1" />
+    </androidx.cardview.widget.CardView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

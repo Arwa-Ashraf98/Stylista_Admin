@@ -12,11 +12,13 @@
     <color name="red">#F60909</color>
     <color name="gray">#dddddd</color>
     <color name="light_green">#F2F6F4F4</color>
-<!--    <color name="primary_color">#702A46</color>-->
     <color name="light_burgendy">#A6702A46</color>
     <color name="text_color">#F3F3F3</color>
     <color name="primary_color">#a02d4a</color>
     <color name="transparent">#36702A46</color>
     <color name="grey">#B6B3B3</color>
     <color name="green_success">#155724</color>
+    <color name="transparent1">#00000000</color>
+    <color name="blue">#090580</color>
+    <color name="transparent2">#A3A02D4A</color>
 </resources>

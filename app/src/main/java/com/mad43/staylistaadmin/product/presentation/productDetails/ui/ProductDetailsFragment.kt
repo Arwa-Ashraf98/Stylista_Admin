@@ -1,7 +1,6 @@
 package com.mad43.staylistaadmin.product.presentation.productDetails.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,6 +38,8 @@ class ProductDetailsFragment : Fragment() {
     private lateinit var inventoryLevel: InventoryLevel
     private var quantity: String = ""
     private var inventoryId: Long = 0L
+    private var variantId: Long = 0L
+    private var productId: Long = 0L
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -107,9 +108,8 @@ class ProductDetailsFragment : Fragment() {
 
     private fun setData(data: SecondProductModel) {
         binding.apply {
-            binding.imageViewDetailedProduct.loadImage(data.product.image?.src as String)
-            editTextDetailedColor.setText(data.product.options?.get(1)?.values?.get(0) ?: "Nothing")
-            editTextDetailedPrice.setText(data.product.variants?.get(0)?.price)
+            binding.imageViewDetailedProduct.loadImage(data.product.image?.src ?: "")
+            editTextDetailedDescription.setText(data.product.body_html)
             val values = data.product.options?.get(0)?.values
             val variantList = data.product.variants
             initSizeRecycler(values!!)
@@ -130,11 +130,13 @@ class ProductDetailsFragment : Fragment() {
                     editTextDetailedTitle.enableEditText()
                     editTextDetailedType.enableEditText()
                     editTextVendor.enableEditText()
+                    editTextDetailedDescription.enableEditText()
                 } else {
                     btnSave.visibilityGone()
                     editTextDetailedTitle.unEnableEditText()
                     editTextDetailedType.unEnableEditText()
                     editTextVendor.unEnableEditText()
+                    editTextDetailedDescription.unEnableEditText()
                 }
             }
 
@@ -142,9 +144,11 @@ class ProductDetailsFragment : Fragment() {
                 val title = editTextDetailedTitle.text.toString().trim()
                 val type = editTextDetailedType.text.toString().trim()
                 val vendor = editTextVendor.text.toString().trim()
+                val description = editTextDetailedDescription.text.toString().trim()
                 secondProductModel.product.vendor = vendor
                 secondProductModel.product.title = title
                 secondProductModel.product.product_type = type
+                secondProductModel.product.body_html = description
                 updateProduct(
                     secondProductModel = secondProductModel,
                     id = secondProductModel.product.id as Long
@@ -170,16 +174,120 @@ class ProductDetailsFragment : Fragment() {
             }
         }
 
+        imageAdapter.setOnItemImageClickListener(object : ImageAdapter.OnImageItemClickListener {
+            override fun setOnImageItemClickListener(productId: Long, imageId: Long) {
+                Dialogs.showConfirmationDialog(
+                    requireContext(),
+                    "Are you sure you want to delete image?",
+                    {
+                        deleteImage(productId, imageId)
+                        observeDeleteImage()
+                    },
+                    {
+                        showToast("delete image is cancelled.")
+                    })
+
+            }
+
+        })
+
 
 
         sizeAdapter.setOnItemSizeClickListener(object : SizeAdapter.OnSizeItemClickListener {
-            override fun setOnSizeItemClickListener(quantity: String, inventoryItemId: Long) {
+            override fun setOnSizeItemClickListener(
+                quantity: String,
+                inventoryItemId: Long,
+            ) {
                 binding.editTextDetailedQuantity.setText(quantity)
                 this@ProductDetailsFragment.quantity = quantity
                 this@ProductDetailsFragment.inventoryId = inventoryItemId
             }
 
+            override fun setOnDeleteVariantClickListener(productId: Long, variantId: Long) {
+                this@ProductDetailsFragment.productId = productId
+                this@ProductDetailsFragment.variantId = variantId
+                showDialog()
+            }
+
         })
+    }
+
+    private fun showDialog() {
+        Dialogs.showConfirmationDialog(
+            requireContext(),
+            "Are you sure you want to delete this variant?",
+            {
+                deleteVariant(productId, variantId)
+                observeDeleteVariant()
+            },
+            {
+                showToast(requireActivity().getString(R.string.deleted_cancelled))
+            })
+    }
+
+    private fun deleteVariant(productId: Long, variantId: Long) {
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                detailedProductViewModel.deleteVariant(productId, variantId)
+            }
+        }
+    }
+
+    private fun observeDeleteVariant() {
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                detailedProductViewModel.variantStateFlow.collect {
+                    when (it) {
+                        is ResourceState.Loading -> {
+                            binding.progressBarDeatils.showProgress()
+                        }
+
+                        is ResourceState.Success -> {
+                            binding.progressBarDeatils.hideProgress()
+                            detailedProductViewModel.getProductById(id!!)
+                            getData()
+
+                        }
+
+                        is ResourceState.Failure -> {
+                            binding.progressBarDeatils.hideProgress()
+                            showToast(it.msg.localizedMessage)
+
+                        }
+
+
+                    }
+                }
+            }
+        }
+    }
+
+    private fun deleteImage(productId: Long, imageId: Long) {
+        detailedProductViewModel.deleteImage(productId, imageId)
+    }
+
+    private fun observeDeleteImage() {
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                detailedProductViewModel.imageStateFlow.collect {
+                    when (it) {
+                        is ResourceState.Loading -> {
+                            binding.progressBarDeatils.showProgress()
+                        }
+
+                        is ResourceState.Success -> {
+                            binding.progressBarDeatils.showProgress()
+                            detailedProductViewModel.getProductById(id!!)
+                            getData()
+                        }
+
+                        is ResourceState.Failure -> {
+                            binding.progressBarDeatils.showProgress()
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun getQuantity() {
@@ -273,7 +381,7 @@ class ProductDetailsFragment : Fragment() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 detailedProductViewModel.errorStateFlow.collect {
-                    showToast(it)
+//                    showToast(it)
                 }
             }
         }
